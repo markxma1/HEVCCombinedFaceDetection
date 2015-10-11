@@ -42,23 +42,26 @@ namespace FaceDetection
             try
             {
                 Mat frame = new Mat();
-                _capture.Retrieve(frame, 0);
-                Mat grayFrame = new Mat();
-                CvInvoke.CvtColor(frame, grayFrame, ColorConversion.Bgr2Gray);
-                Mat smallGrayFrame = new Mat();
-                CvInvoke.PyrDown(grayFrame, smallGrayFrame);
-                Mat smoothedGrayFrame = new Mat();
-                CvInvoke.PyrUp(smallGrayFrame, smoothedGrayFrame);
+                _capture.Retrieve(frame,1);
+                if (!frame.IsEmpty)
+                {
+                    Mat grayFrame = new Mat();
+                    CvInvoke.CvtColor(frame, grayFrame, ColorConversion.Bgr2Gray);
+                    Mat smallGrayFrame = new Mat();
+                    CvInvoke.PyrDown(grayFrame, smallGrayFrame);
+                    Mat smoothedGrayFrame = new Mat();
+                    CvInvoke.PyrUp(smallGrayFrame, smoothedGrayFrame);
 
-                //Image<Gray, Byte> smallGrayFrame = grayFrame.PyrDown();
-                //Image<Gray, Byte> smoothedGrayFrame = smallGrayFrame.PyrUp();
-                Mat cannyFrame = new Mat();
-                CvInvoke.Canny(smoothedGrayFrame, cannyFrame, 100, 60);
+                    //Image<Gray, Byte> smallGrayFrame = grayFrame.PyrDown();
+                    //Image<Gray, Byte> smoothedGrayFrame = smallGrayFrame.PyrUp();
+                    Mat cannyFrame = new Mat();
+                    CvInvoke.Canny(smoothedGrayFrame, cannyFrame, 100, 60);
 
-                //Image<Gray, Byte> cannyFrame = smoothedGrayFrame.Canny(100, 60);
+                    //Image<Gray, Byte> cannyFrame = smoothedGrayFrame.Canny(100, 60);
 
-                pictureBox2.Image = frame.Bitmap;
-                DetectFace(frame);
+                    pictureBox2.Image = frame.Bitmap;
+                    DetectFace(frame);
+                }
 
             }
             catch (Exception ex)
@@ -136,6 +139,7 @@ namespace FaceDetection
         {
             try
             {
+                _capture.Dispose();
                 _capture = new Capture();
                 _capture.ImageGrabbed += ProcessFrame;
             }
@@ -152,7 +156,7 @@ namespace FaceDetection
                 try
                 {
                     fileName = openFileDialog1.FileName;
-
+                    _capture.Dispose();
                     _capture = new Capture(fileName);
                     _capture.ImageGrabbed += ProcessFrame;
                 }
