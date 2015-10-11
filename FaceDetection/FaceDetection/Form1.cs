@@ -30,7 +30,7 @@ namespace FaceDetection
                 _capture = new Capture();
                 _capture.ImageGrabbed += ProcessFrame;
             }
-            catch (NullReferenceException excpt)
+            catch (Exception excpt)
             {
                 MessageBox.Show(excpt.Message);
             }
@@ -43,25 +43,30 @@ namespace FaceDetection
             {
                 Mat frame = new Mat();
                 _capture.Retrieve(frame, 0);
-                Mat grayFrame = new Mat();
-                CvInvoke.CvtColor(frame, grayFrame, ColorConversion.Bgr2Gray);
-                Mat smallGrayFrame = new Mat();
-                CvInvoke.PyrDown(grayFrame, smallGrayFrame);
-                Mat smoothedGrayFrame = new Mat();
-                CvInvoke.PyrUp(smallGrayFrame, smoothedGrayFrame);
+                if (!frame.IsEmpty)
+                {
+                    Mat grayFrame = new Mat();
+                    CvInvoke.CvtColor(frame, grayFrame, ColorConversion.Bgr2Gray);
+                    Mat smallGrayFrame = new Mat();
+                    CvInvoke.PyrDown(grayFrame, smallGrayFrame);
+                    Mat smoothedGrayFrame = new Mat();
+                    CvInvoke.PyrUp(smallGrayFrame, smoothedGrayFrame);
 
-                //Image<Gray, Byte> smallGrayFrame = grayFrame.PyrDown();
-                //Image<Gray, Byte> smoothedGrayFrame = smallGrayFrame.PyrUp();
-                Mat cannyFrame = new Mat();
-                CvInvoke.Canny(smoothedGrayFrame, cannyFrame, 100, 60);
+                    //Image<Gray, Byte> smallGrayFrame = grayFrame.PyrDown();
+                    //Image<Gray, Byte> smoothedGrayFrame = smallGrayFrame.PyrUp();
+                    Mat cannyFrame = new Mat();
+                    CvInvoke.Canny(smoothedGrayFrame, cannyFrame, 100, 60);
 
-                //Image<Gray, Byte> cannyFrame = smoothedGrayFrame.Canny(100, 60);
+                    //Image<Gray, Byte> cannyFrame = smoothedGrayFrame.Canny(100, 60);
 
-                pictureBox2.Image = frame.Bitmap;
-                DetectFace(frame);
+                    pictureBox2.Image = frame.Bitmap;
+                    DetectFace(frame);
+                }
             }
             catch (Exception ex)
-            { }
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void startBTN_Click(object sender, EventArgs e)
@@ -104,7 +109,7 @@ namespace FaceDetection
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                    MessageBox.Show(ex.Message);
                 }
             }
         }
@@ -126,6 +131,37 @@ namespace FaceDetection
                 }
 
                 _captureInProgress = !_captureInProgress;
+            }
+        }
+
+        private void CamBTN_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _capture = new Capture();
+                _capture.ImageGrabbed += ProcessFrame;
+            }
+            catch (NullReferenceException excpt)
+            {
+                MessageBox.Show(excpt.Message);
+            }
+        }
+
+        private void VideoBTN_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    fileName = openFileDialog1.FileName;
+
+                    _capture = new Capture(fileName);
+                    _capture.ImageGrabbed += ProcessFrame;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
     }

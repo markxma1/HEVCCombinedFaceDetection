@@ -34,6 +34,8 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.captureButton = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.CamBTN = new System.Windows.Forms.Button();
+            this.VideoBTN = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -90,11 +92,33 @@
             this.pictureBox2.TabIndex = 5;
             this.pictureBox2.TabStop = false;
             // 
+            // CamBTN
+            // 
+            this.CamBTN.Location = new System.Drawing.Point(269, 12);
+            this.CamBTN.Name = "CamBTN";
+            this.CamBTN.Size = new System.Drawing.Size(89, 23);
+            this.CamBTN.TabIndex = 6;
+            this.CamBTN.Text = "Init Cam";
+            this.CamBTN.UseVisualStyleBackColor = true;
+            this.CamBTN.Click += new System.EventHandler(this.CamBTN_Click);
+            // 
+            // VideoBTN
+            // 
+            this.VideoBTN.Location = new System.Drawing.Point(364, 12);
+            this.VideoBTN.Name = "VideoBTN";
+            this.VideoBTN.Size = new System.Drawing.Size(89, 23);
+            this.VideoBTN.TabIndex = 7;
+            this.VideoBTN.Text = "Load Video";
+            this.VideoBTN.UseVisualStyleBackColor = true;
+            this.VideoBTN.Click += new System.EventHandler(this.VideoBTN_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(851, 544);
+            this.Controls.Add(this.VideoBTN);
+            this.Controls.Add(this.CamBTN);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.captureButton);
             this.Controls.Add(this.LoadBTN);
@@ -116,6 +140,8 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button captureButton;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button CamBTN;
+        private System.Windows.Forms.Button VideoBTN;
     }
 }
 
