@@ -614,9 +614,9 @@ Void TAppEncTop::xWriteOutput(std::ostream& bitstreamFile, Int iNumEncoded, cons
         m_cTVideoIOYuvReconFile.write( pcPicYuvRecTop, pcPicYuvRecBottom, ipCSC, m_confWinLeft, m_confWinRight, m_confWinTop, m_confWinBottom, NUM_CHROMA_FORMAT, m_isTopFieldFirst );
       }
 
-      const AccessUnit& auTop = *(iterBitstream++);
-      const vector<UInt>& statsTop = writeAnnexB(bitstreamFile, auTop);
-      rateStatsAccum(auTop, statsTop);
+      const AccessUnit& /*auto*/p = *(iterBitstream++);
+      const vector<UInt>& statsTop = writeAnnexB(bitstreamFile, /*auto*/p);
+      rateStatsAccum(/*auto*/p, statsTop);
 
       const AccessUnit& auBottom = *(iterBitstream++);
       const vector<UInt>& statsBottom = writeAnnexB(bitstreamFile, auBottom);

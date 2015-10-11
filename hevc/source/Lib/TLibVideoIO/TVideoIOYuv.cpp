@@ -102,7 +102,7 @@ static Void scalePlane(Pel* img, const UInt stride, const UInt width, const UInt
 /**
  * Open file for reading/writing Y'CbCr frames.
  *
- * Frames read/written have bitdepth fileBitDepth, and are automatically
+ * Frames read/written have bitdepth fileBitDepth, and are /*auto*/matically
  * formatted as 8 or 16 bit word values (see TVideoIOYuv::write()).
  *
  * Image data read or written is converted to/from internalBitDepth
