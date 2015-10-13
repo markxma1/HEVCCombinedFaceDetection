@@ -17,7 +17,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TLibEncoder", "vc10\TLibEnc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TLibVideoIO", "vc10\TLibVideoIO_vc10.vcxproj", "{5280C25A-D316-4BE7-AE50-29D72108624F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{9DB762E0-9158-464F-B1C2-174D9FEA0516}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HalloWelt", "HalloWelt\HalloWelt.vcxproj", "{F8332753-9B71-44D4-8B91-FF20BF980C90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,14 +83,14 @@ Global
 		{5280C25A-D316-4BE7-AE50-29D72108624F}.Release|Win32.Build.0 = Release|Win32
 		{5280C25A-D316-4BE7-AE50-29D72108624F}.Release|x64.ActiveCfg = Release|x64
 		{5280C25A-D316-4BE7-AE50-29D72108624F}.Release|x64.Build.0 = Release|x64
-		{9DB762E0-9158-464F-B1C2-174D9FEA0516}.Debug|Win32.ActiveCfg = Debug|Win32
-		{9DB762E0-9158-464F-B1C2-174D9FEA0516}.Debug|Win32.Build.0 = Debug|Win32
-		{9DB762E0-9158-464F-B1C2-174D9FEA0516}.Debug|x64.ActiveCfg = Debug|x64
-		{9DB762E0-9158-464F-B1C2-174D9FEA0516}.Debug|x64.Build.0 = Debug|x64
-		{9DB762E0-9158-464F-B1C2-174D9FEA0516}.Release|Win32.ActiveCfg = Release|Win32
-		{9DB762E0-9158-464F-B1C2-174D9FEA0516}.Release|Win32.Build.0 = Release|Win32
-		{9DB762E0-9158-464F-B1C2-174D9FEA0516}.Release|x64.ActiveCfg = Release|x64
-		{9DB762E0-9158-464F-B1C2-174D9FEA0516}.Release|x64.Build.0 = Release|x64
+		{F8332753-9B71-44D4-8B91-FF20BF980C90}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F8332753-9B71-44D4-8B91-FF20BF980C90}.Debug|Win32.Build.0 = Debug|Win32
+		{F8332753-9B71-44D4-8B91-FF20BF980C90}.Debug|x64.ActiveCfg = Debug|x64
+		{F8332753-9B71-44D4-8B91-FF20BF980C90}.Debug|x64.Build.0 = Debug|x64
+		{F8332753-9B71-44D4-8B91-FF20BF980C90}.Release|Win32.ActiveCfg = Release|Win32
+		{F8332753-9B71-44D4-8B91-FF20BF980C90}.Release|Win32.Build.0 = Release|Win32
+		{F8332753-9B71-44D4-8B91-FF20BF980C90}.Release|x64.ActiveCfg = Release|x64
+		{F8332753-9B71-44D4-8B91-FF20BF980C90}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
