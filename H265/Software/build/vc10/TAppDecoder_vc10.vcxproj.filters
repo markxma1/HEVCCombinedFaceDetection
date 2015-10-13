@@ -14,23 +14,4 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\source\App\TAppDecoder\decmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\App\TAppDecoder\TAppDecCfg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\source\App\TAppDecoder\TAppDecTop.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\source\App\TAppDecoder\TAppDecCfg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\source\App\TAppDecoder\TAppDecTop.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
 </Project>
