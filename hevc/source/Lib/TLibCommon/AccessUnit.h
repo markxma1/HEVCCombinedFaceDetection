@@ -53,7 +53,7 @@
  * access unit.
  *
  * NALUnits held in the AccessUnit list are in EBSP format.  Attempting
- * to insert an OutputNALUnit into the access unit will /*auto*/matically cause
+ * to insert an OutputNALUnit into the access unit will automatically cause
  * the nalunit to have its headers written and anti-emulation performed.
  *
  * The AccessUnit owns all pointers stored within.  Destroying the

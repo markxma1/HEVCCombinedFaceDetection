@@ -307,7 +307,7 @@ Void TEncGOP::xWriteLeadingSEIMessages (SEIMessages& seiMessages, SEIMessages& d
   // actual writing
   xWriteLeadingSEIOrdered(seiMessages, duInfoSeiMessages, accessUnit, temporalId, sps, false);
 
-  // testAU will /*auto*/matically be cleaned up when losing scope
+  // testAU will  automatically be cleaned up when losing scope
 }
 
 Void TEncGOP::xWriteTrailingSEIMessages (SEIMessages& seiMessages, AccessUnit &accessUnit, Int temporalId, const TComSPS *sps)

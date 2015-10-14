@@ -575,7 +575,7 @@ static inline istream& operator >> (istream &in, SMultiValueInput<Bool> &values)
 }
 
 static Void
-/*auto*/maticallySelectRExtProfile(const Bool bUsingGeneralRExtTools,
+ automaticallySelectRExtProfile(const Bool bUsingGeneralRExtTools,
                                const Bool bUsingChromaQPAdjustment,
                                const Bool bUsingExtendedPrecision,
                                const Bool bIntraConstraintFlag,
@@ -739,7 +739,7 @@ Bool TAppEncCfg::parseCfg( Int argc, Char* argv[] )
   ("CabacZeroWordPaddingEnabled",                     m_cabacZeroWordPaddingEnabled,                     true, "0 do not add conforming cabac-zero-words to bit streams, 1 (default) = add cabac-zero-words as required")
   ("ChromaFormatIDC,-cf",                             tmpChromaFormat,                                      0, "ChromaFormatIDC (400|420|422|444 or set 0 (default) for same as InputChromaFormat)")
   ("ConformanceMode",                                 m_conformanceWindowMode,                              0, "Deprecated alias of ConformanceWindowMode")
-  ("ConformanceWindowMode",                           m_conformanceWindowMode,                              0, "Window conformance mode (0: no window, 1:/*auto*/matic padding, 2:padding, 3:conformance")
+  ("ConformanceWindowMode",                           m_conformanceWindowMode,                              0, "Window conformance mode (0: no window, 1: automatic padding, 2:padding, 3:conformance")
   ("HorizontalPadding,-pdx",                          m_aiPad[0],                                           0, "Horizontal source padding for conformance window mode 2")
   ("VerticalPadding,-pdy",                            m_aiPad[1],                                           0, "Vertical source padding for conformance window mode 2")
   ("ConfLeft",                                        m_confWinLeft,                                        0, "Deprecated alias of ConfWinLeft")
@@ -769,8 +769,8 @@ Bool TAppEncCfg::parseCfg( Int argc, Char* argv[] )
   ("Profile",                                         extendedProfile,                                   NONE, "Profile name to use for encoding. Use main (for main), main10 (for main10), main-still-picture, main-RExt (for Range Extensions profile), any of the RExt specific profile names, or none")
   ("Level",                                           m_level,                                    Level::NONE, "Level limit to be used, eg 5.1, or none")
   ("Tier",                                            m_levelTier,                                Level::MAIN, "Tier to use for interpretation of --Level (main or high only)")
-  ("MaxBitDepthConstraint",                           m_bitDepthConstraint,                                0u, "Bit depth to use for profile-constraint for RExt profiles. 0=/*auto*/matically choose based upon other parameters")
-  ("MaxChromaFormatConstraint",                       tmpConstraintChromaFormat,                            0, "Chroma-format to use for the profile-constraint for RExt profiles. 0=/*auto*/matically choose based upon other parameters")
+  ("MaxBitDepthConstraint",                           m_bitDepthConstraint,                                0u, "Bit depth to use for profile-constraint for RExt profiles. 0= automatically choose based upon other parameters")
+  ("MaxChromaFormatConstraint",                       tmpConstraintChromaFormat,                            0, "Chroma-format to use for the profile-constraint for RExt profiles. 0= automatically choose based upon other parameters")
   ("IntraConstraintFlag",                             m_intraConstraintFlag,                            false, "Value of general_intra_constraint_flag to use for RExt profiles (not used if an explicit RExt sub-profile is specified)")
   ("OnePictureOnlyConstraintFlag",                    m_onePictureOnlyConstraintFlag,                   false, "Value of general_one_picture_only_constraint_flag to use for RExt profiles (not used if an explicit RExt sub-profile is specified)")
   ("LowerBitRateConstraintFlag",                      m_lowerBitRateConstraintFlag,                      true, "Value of general_lower_bit_rate_constraint_flag to use for RExt profiles")
@@ -855,8 +855,8 @@ Bool TAppEncCfg::parseCfg( Int argc, Char* argv[] )
   ("AMP",                                             m_enableAMP,                                       true, "Enable asymmetric motion partitions")
   ("CrossComponentPrediction",                        m_crossComponentPredictionEnabledFlag,            false, "Enable the use of cross-component prediction (not valid in V1 profiles)")
   ("ReconBasedCrossCPredictionEstimate",              m_reconBasedCrossCPredictionEstimate,             false, "When determining the alpha value for cross-component prediction, use the decoded residual rather than the pre-transform encoder-side residual")
-  ("SaoLumaOffsetBitShift",                           saoOffsetBitShift[CHANNEL_TYPE_LUMA],                 0, "Specify the luma SAO bit-shift. If negative, /*auto*/matically calculate a suitable value based upon bit depth and initial QP")
-  ("SaoChromaOffsetBitShift",                         saoOffsetBitShift[CHANNEL_TYPE_CHROMA],               0, "Specify the chroma SAO bit-shift. If negative, /*auto*/matically calculate a suitable value based upon bit depth and initial QP")
+  ("SaoLumaOffsetBitShift",                           saoOffsetBitShift[CHANNEL_TYPE_LUMA],                 0, "Specify the luma SAO bit-shift. If negative,  automatically calculate a suitable value based upon bit depth and initial QP")
+  ("SaoChromaOffsetBitShift",                         saoOffsetBitShift[CHANNEL_TYPE_CHROMA],               0, "Specify the chroma SAO bit-shift. If negative,  automatically calculate a suitable value based upon bit depth and initial QP")
   ("TransformSkip",                                   m_useTransformSkip,                               false, "Intra transform skipping")
   ("TransformSkipFast",                               m_useTransformSkipFast,                           false, "Fast intra transform skipping")
   ("TransformSkipLog2MaxSize",                        m_log2MaxTransformSkipBlockSize,                     2U, "Specify transform-skip maximum size. Minimum 2. (not valid in V1 profiles)")
@@ -1277,7 +1277,7 @@ Bool TAppEncCfg::parseCfg( Int argc, Char* argv[] )
       else
       {
         m_chromaFormatConstraint = NUM_CHROMA_FORMAT;
-        /*auto*/maticallySelectRExtProfile(bUsingGeneralRExtTools,
+         automaticallySelectRExtProfile(bUsingGeneralRExtTools,
                                        bUsingChromaQPAdjustment,
                                        bUsingExtendedPrecision,
                                        m_intraConstraintFlag,
@@ -1289,7 +1289,7 @@ Bool TAppEncCfg::parseCfg( Int argc, Char* argv[] )
     }
     else if (m_bitDepthConstraint == 0 || tmpConstraintChromaFormat == 0)
     {
-      fprintf(stderr, "Error: The bit depth and chroma format constraints must either both be specified or both be configured /*auto*/matically\n");
+      fprintf(stderr, "Error: The bit depth and chroma format constraints must either both be specified or both be configured  automatically\n");
       exit(EXIT_FAILURE);
     }
     else
@@ -1317,7 +1317,7 @@ Bool TAppEncCfg::parseCfg( Int argc, Char* argv[] )
     }
   case 1:
     {
-      // /*auto*/matic padding to minimum CU size
+      //  automatic padding to minimum CU size
       Int minCuSize = m_uiMaxCUHeight >> (m_uiMaxCUDepth - 1);
       if (m_iSourceWidth % minCuSize)
       {
@@ -1540,7 +1540,7 @@ Void TAppEncCfg::xCheckParameter()
   {
     fprintf(stderr, "******************************************************************\n");
     fprintf(stderr, "** WARNING: --SEIDecodedPictureHash is now disabled by default. **\n");
-    fprintf(stderr, "**          /*auto*/matic verification of decoded pictures by a     **\n");
+    fprintf(stderr, "**           automatic verification of decoded pictures by a     **\n");
     fprintf(stderr, "**          decoder requires this option to be enabled.         **\n");
     fprintf(stderr, "******************************************************************\n");
   }

@@ -963,7 +963,7 @@ Void TEncTop::xInitRPS(Bool isFieldCoding)
     rps->setDeltaRIdxMinus1(0);                               // index to the Reference RPS is always the previous one.
     TComReferencePictureSet*     RPSRef = i>0 ? rpsList->getReferencePictureSet(i-1): NULL;  // get the reference RPS
 
-    if (ge.m_interRPSPrediction == 2)  // /*auto*/matic generation of the inter RPS idc based on the RIdx provided.
+    if (ge.m_interRPSPrediction == 2)  //  automatic generation of the inter RPS idc based on the RIdx provided.
     {
       assert (RPSRef!=NULL);
       Int deltaRPS = getGOPEntry(i-1).m_POC - ge.m_POC;  // the ref POC - current POC

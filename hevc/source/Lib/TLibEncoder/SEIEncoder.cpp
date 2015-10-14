@@ -254,7 +254,7 @@ Void SEIEncoder::initSEIBufferingPeriod(SEIBufferingPeriod *bufferingPeriodSEI, 
 
 //! initialize scalable nesting SEI message.
 //! Note: The SEI message structures input into this function will become part of the scalable nesting SEI and will be 
-//!       /*auto*/matically freed, when the nesting SEI is disposed.
+//!        automatically freed, when the nesting SEI is disposed.
 Void SEIEncoder::initSEIScalableNesting(SEIScalableNesting *scalableNestingSEI, SEIMessages &nestedSEIs)
 {
   assert (m_isInitialized);
