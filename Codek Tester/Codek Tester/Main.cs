@@ -23,9 +23,12 @@ namespace Codek_Tester
         Mat Encoded = new Mat();
         byte comp = 0;
         double PSNRSUM = 0;
+        PSNRForm psnrForm = new PSNRForm();
+
         public Main()
         {
             InitializeComponent();
+            psnrForm.Show();
             CvInvoke.UseOpenCL = true;
             PSNRSUM = 0;
             try
@@ -87,11 +90,13 @@ namespace Codek_Tester
         {
             if (comp == 3)
             {
-                PSNRSUM += CvInvoke.PSNR(Origenal, Encoded);
+                var PSNR = CvInvoke.PSNR(Origenal, Encoded);
+                PSNRSUM += PSNR;
                 this.Invoke((Action)delegate
                 {
-                    psnrLabel.Text = CvInvoke.PSNR(Origenal, Encoded).ToString();
+                    psnrLabel.Text = PSNR.ToString();
                     psnrsumLabel.Text = PSNRSUM.ToString();
+                    psnrForm.addPSNR(PSNR);
                 });
                 comp = 0;
             }
@@ -100,8 +105,10 @@ namespace Codek_Tester
         private void restartBTN_Click(object sender, EventArgs e)
         {
             PSNRSUM = 0;
+            comp = 0;
             Input.Start();
             Outout.Start();
+            psnrForm.Clear();
         }
     }
 }
