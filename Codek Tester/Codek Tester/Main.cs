@@ -15,7 +15,7 @@ using Emgu.CV.Structure;
 
 namespace Codek_Tester
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
         YUV Input;
         YUV Outout;
@@ -23,7 +23,7 @@ namespace Codek_Tester
         Mat Encoded = new Mat();
         byte comp = 0;
         double PSNRSUM = 0;
-        public Form1()
+        public Main()
         {
             InitializeComponent();
             CvInvoke.UseOpenCL = true;
