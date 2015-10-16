@@ -19,10 +19,15 @@ namespace Codek_Tester
     {
         YUV Input;
         YUV Outout;
+        Mat Origenal = new Mat();
+        Mat Encoded = new Mat();
+        byte comp = 0;
+        double PSNRSUM = 0;
         public Form1()
         {
             InitializeComponent();
-            CvInvoke.UseOpenCL = false;
+            CvInvoke.UseOpenCL = true;
+            PSNRSUM = 0;
             try
             {
                 Input = new YUV("mobile_cif.yuv", 352, 288);
@@ -33,19 +38,24 @@ namespace Codek_Tester
                 Outout.Start();
             }
             catch (Exception ex)
-            {
-
-            }
+            { }
         }
 
         private void ProcessFrameInput(object sender, EventArgs e)
         {
-
             try
             {
-                Mat frame = new Mat();
-                Input.Retrieve(frame, 0);
-                pictureBox1.Image = new Bitmap(frame.Bitmap);
+                if (Outout.isOn)
+                {
+                    while (!((comp == 0) || (comp == 2))) ;
+
+                    Mat frame = new Mat();
+                    Input.Retrieve(frame);
+                    frame.CopyTo(Origenal);
+                    pictureBox1.Image = new Bitmap(frame.Bitmap);
+                    comp = (byte)(comp | 1);
+                    Compare();
+                }
             }
             catch (Exception ex)
             {
@@ -54,16 +64,44 @@ namespace Codek_Tester
 
         private void ProcessFrameOutput(object sender, EventArgs e)
         {
-
             try
             {
-                Mat frame = new Mat();
-                Input.Retrieve(frame, 0);
-                pictureBox2.Image = new Bitmap(frame.Bitmap);
+                if (Input.isOn)
+                {
+                    while (!((comp == 0) || (comp == 1))) ;
+
+                    Mat frame = new Mat();
+                    Input.Retrieve(frame);
+                    frame.CopyTo(Encoded);
+                    pictureBox2.Image = new Bitmap(frame.Bitmap);
+                    comp = (byte)(comp | 2);
+                    Compare();
+                }
             }
             catch (Exception ex)
             {
             }
+        }
+
+        private void Compare()
+        {
+            if (comp == 3)
+            {
+                PSNRSUM += CvInvoke.PSNR(Origenal, Encoded);
+                this.Invoke((Action)delegate
+                {
+                    psnrLabel.Text = CvInvoke.PSNR(Origenal, Encoded).ToString();
+                    psnrsumLabel.Text = PSNRSUM.ToString();
+                });
+                comp = 0;
+            }
+        }
+
+        private void restartBTN_Click(object sender, EventArgs e)
+        {
+            PSNRSUM = 0;
+            Input.Start();
+            Outout.Start();
         }
     }
 }
