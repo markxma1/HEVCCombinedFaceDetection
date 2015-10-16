@@ -26,11 +26,10 @@ namespace Codek_Tester
             try
             {
                 Input = new YUV("mobile_cif.yuv", 352, 288);
-                Input.ImageGrabbed += ProcessFrameInput;
-                Input.Start();
-
                 Outout = new YUV("mobile_out.yuv", 352, 288);
+                Input.ImageGrabbed += ProcessFrameInput;
                 Outout.ImageGrabbed += ProcessFrameOutput;
+                Input.Start();
                 Outout.Start();
             }
             catch (Exception ex)
