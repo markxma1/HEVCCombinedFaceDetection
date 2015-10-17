@@ -29,7 +29,7 @@ namespace Codek_Tester
         {
             InitializeComponent();
             psnrForm.Show();
-            CvInvoke.UseOpenCL = true;
+            CvInvoke.UseOpenCL = false;
             PSNRSUM = 0;
             try
             {
@@ -40,8 +40,7 @@ namespace Codek_Tester
                 Input.Start();
                 Outout.Start();
             }
-            catch (Exception ex)
-            { }
+            catch (Exception ex) { }
         }
 
         private void ProcessFrameInput(object sender, EventArgs e)
@@ -60,9 +59,7 @@ namespace Codek_Tester
                     Compare();
                 }
             }
-            catch (Exception ex)
-            {
-            }
+            catch (Exception ex) { }
         }
 
         private void ProcessFrameOutput(object sender, EventArgs e)
@@ -74,16 +71,14 @@ namespace Codek_Tester
                     while (!((comp == 0) || (comp == 1))) ;
 
                     Mat frame = new Mat();
-                    Input.Retrieve(frame);
+                    Outout.Retrieve(frame);
                     frame.CopyTo(Encoded);
                     pictureBox2.Image = new Bitmap(frame.Bitmap);
                     comp = (byte)(comp | 2);
                     Compare();
                 }
             }
-            catch (Exception ex)
-            {
-            }
+            catch (Exception ex) { }
         }
 
         private void Compare()
