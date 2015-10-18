@@ -12,6 +12,7 @@ using Emgu.CV.UI;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Util;
 using Emgu.CV.Structure;
+using System.Diagnostics;
 
 namespace Codek_Tester
 {
@@ -24,6 +25,8 @@ namespace Codek_Tester
         byte comp = 0;
         double PSNRSUM = 0;
         PSNRForm psnrForm = new PSNRForm();
+        Process proc;
+        string openFile, saveFile;
 
         public Main()
         {
@@ -33,12 +36,10 @@ namespace Codek_Tester
             PSNRSUM = 0;
             try
             {
-                Input = new YUV("mobile_cif.yuv", 352, 288);
-                Outout = new YUV("mobile_out.yuv", 352, 288);
+                Input = new YUV(textBox1.Text, 352, 288);
+                Outout = new YUV(textBox2.Text, 352, 288);
                 Input.ImageGrabbed += ProcessFrameInput;
                 Outout.ImageGrabbed += ProcessFrameOutput;
-                Input.Start();
-                Outout.Start();
             }
             catch (Exception ex) { }
         }
@@ -104,6 +105,99 @@ namespace Codek_Tester
             Input.Start();
             Outout.Start();
             psnrForm.Clear();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "HEVC files (*.hevc)|*.hevc";
+            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.RestoreDirectory = true;
+
+            saveFileDialog1.Filter = "YUV files (*.yuv)|*.yuv";
+            saveFileDialog1.FilterIndex = 2;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                openFile = openFileDialog1.FileName;//"mobile2.hevc";
+                openFile = "\"" + openFile.Replace("\\", "/") + "\"";
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    saveFile = saveFileDialog1.FileName;// "teddt.yuv";
+                    saveFile = "\"" + saveFile.Replace("\\", "/") + "\"";
+                    backgroundWorker2.RunWorkerAsync();
+                }
+            }
+        }
+
+        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            progressBar1.Maximum = 100;
+            progressBar1.Value = 0;
+            proc = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "TAppDecoder.exe",
+                    Arguments = " -b " + openFile + " -o " + saveFile,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                }
+            };
+            proc.Start();
+            string standard_output;
+            while ((standard_output = proc.StandardOutput.ReadLine()) != null)
+            {
+                Invoke((Action)delegate
+                {
+                    listBox1.Items.Add(standard_output);
+                });
+            }
+            proc.WaitForExit();
+            progressBar1.Value = 100;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "YUV files (*.yuv)|*.yuv";
+            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                openFile = openFileDialog1.FileName;//"mobile_cif.yuv";
+                openFile = "\"" + openFile.Replace("\\", "/") + "\"";
+                backgroundWorker3.RunWorkerAsync();
+            }
+        }
+
+        private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
+        {
+            progressBar1.Maximum = 100;
+            progressBar1.Value = 0;
+            proc = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "TAppEncoder.exe",
+                    Arguments = "-c test.cfg -i " + openFile,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                }
+            };
+            proc.Start();
+            string standard_output;
+            while ((standard_output = proc.StandardOutput.ReadLine()) != null)
+            {
+                Invoke((Action)delegate
+                {
+                    listBox1.Items.Add(standard_output);
+                });
+            }
+            proc.WaitForExit();
+            progressBar1.Value = 100;
         }
     }
 }
