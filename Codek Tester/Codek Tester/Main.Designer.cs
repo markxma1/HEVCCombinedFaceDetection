@@ -59,8 +59,9 @@
             this.SettingsBTN.Name = "SettingsBTN";
             this.SettingsBTN.Size = new System.Drawing.Size(75, 23);
             this.SettingsBTN.TabIndex = 0;
-            this.SettingsBTN.Text = "Load";
+            this.SettingsBTN.Text = "Settings";
             this.SettingsBTN.UseVisualStyleBackColor = true;
+            this.SettingsBTN.Click += new System.EventHandler(this.SettingsBTN_Click);
             // 
             // button2
             // 

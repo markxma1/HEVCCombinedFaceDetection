@@ -172,6 +172,24 @@ namespace Codek_Tester
             }
         }
 
+        private void SettingsBTN_Click(object sender, EventArgs e)
+        {
+
+            
+            proc = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "notepad",
+                    Arguments = " test.cfg",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                }
+            };
+            proc.Start();
+        }
+
         private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
         {
             progressBar1.Maximum = 100;
