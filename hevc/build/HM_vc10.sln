@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TAppDecoder", "vc10\TAppDecoder_vc10.vcxproj", "{A7A515D9-E917-4706-BD5B-57DC6C78D612}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TAppEncoder", "vc10\TAppEncoder_vc10.vcxproj", "{D759E4E1-D33A-4483-B57B-0FD248E022FE}"
