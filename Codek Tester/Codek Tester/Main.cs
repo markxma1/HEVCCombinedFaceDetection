@@ -100,11 +100,21 @@ namespace Codek_Tester
 
         private void restartBTN_Click(object sender, EventArgs e)
         {
-            PSNRSUM = 0;
-            comp = 0;
-            Input.Start();
-            Outout.Start();
-            psnrForm.Clear();
+            try
+            {
+                PSNRSUM = 0;
+                comp = 0;
+
+                Input = new YUV(textBox1.Text, 352, 288);
+                Outout = new YUV(textBox2.Text, 352, 288);
+                Input.ImageGrabbed += ProcessFrameInput;
+                Outout.ImageGrabbed += ProcessFrameOutput;
+
+                Input.Start();
+                Outout.Start();
+                psnrForm.Clear();
+            }
+            catch (Exception ex) { }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -175,7 +185,7 @@ namespace Codek_Tester
         private void SettingsBTN_Click(object sender, EventArgs e)
         {
 
-            
+
             proc = new Process
             {
                 StartInfo = new ProcessStartInfo
