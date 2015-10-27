@@ -11,8 +11,8 @@ namespace Codek_Tester
 {
     class YUVSave
     {
-        private static int w = 352;
-        private static int h = 288;
+        private static int width = 352;
+        private static int height = 288;
         private static List<byte> YBytes = new List<byte>();
         private static List<byte> UBytes = new List<byte>();
         private static List<byte> VBytes = new List<byte>();
@@ -23,15 +23,17 @@ namespace Codek_Tester
             List<byte> Bytes = new List<byte>();
         }
 
-        public static void PutImage(Mat Image)
+        public static void PutImage(Mat Image, int Width, int Height)
         {
+            width = Width;
+            height = Height;
             YBytes = new List<byte>();
             UBytes = new List<byte>();
             VBytes = new List<byte>();
             int k = 0;
-            for (int i = 0; i < h; i++)
+            for (int i = 0; i < height; i++)
             {
-                for (int j = 0; j < w; j++)
+                for (int j = 0; j < width; j++)
                 {
                     var data = Image.GetData(i, j);
                     var YUVdata = RGBtoYUV(data);
@@ -77,6 +79,11 @@ namespace Codek_Tester
 
             return Bytes;
 
+        }
+
+        public static void SaveFilePath(string saveFile)
+        {
+            throw new NotImplementedException();
         }
     }
 }

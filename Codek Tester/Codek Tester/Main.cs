@@ -187,8 +187,6 @@ namespace Codek_Tester
 
         private void SettingsBTN_Click(object sender, EventArgs e)
         {
-
-
             proc = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -205,52 +203,74 @@ namespace Codek_Tester
 
         private void SaveBTN_Click(object sender, EventArgs e)
         {
-            capture = new Capture("video1.mpg");
-            capture.ImageGrabbed += InputVideo;
-            capture.Start();
+            openFileDialog1.RestoreDirectory = true;
+
+            saveFileDialog1.Filter = "YUV files (*.yuv)|*.yuv";
+            saveFileDialog1.FilterIndex = 2;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    saveFile = saveFileDialog1.FileName;
+
+                    capture = new Capture(openFileDialog1.FileName);
+                    capture.ImageGrabbed += InputVideo;
+                    capture.Start();
+                    frameID = 0;
+                }
+            }
         }
 
         private void InputVideo(object sender, EventArgs e)
         {
+            Invoke((Action)delegate ()
+            {
+                progressBar1.Maximum = MaxFrame;
+                progressBar1.Value = frameID;
+            });
+
             if (frameID++ < MaxFrame)
             {
                 Mat frame = new Mat();
                 capture.Retrieve(frame);
-                YUVSave.PutImage(frame);
-                YUVSave.SaveToFile();
+                YUVSave.PutImage(frame, frame.Width, frame.Height);
+                YUVSave.SaveToFile(saveFile);
             }
             else
             {
+                MessageBox.Show("Finish");
                 capture.Stop();
             }
         }
 
-        private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
+    private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
+    {
+        progressBar1.Maximum = 100;
+        progressBar1.Value = 0;
+        proc = new Process
         {
-            progressBar1.Maximum = 100;
-            progressBar1.Value = 0;
-            proc = new Process
+            StartInfo = new ProcessStartInfo
             {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = "TAppEncoder.exe",
-                    Arguments = "-c test.cfg -i " + openFile,
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = true
-                }
-            };
-            proc.Start();
-            string standard_output;
-            while ((standard_output = proc.StandardOutput.ReadLine()) != null)
-            {
-                Invoke((Action)delegate
-                {
-                    listBox1.Items.Add(standard_output);
-                });
+                FileName = "TAppEncoder.exe",
+                Arguments = "-c test.cfg -i " + openFile,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                CreateNoWindow = true
             }
-            proc.WaitForExit();
-            progressBar1.Value = 100;
+        };
+        proc.Start();
+        string standard_output;
+        while ((standard_output = proc.StandardOutput.ReadLine()) != null)
+        {
+            Invoke((Action)delegate
+            {
+                listBox1.Items.Add(standard_output);
+            });
         }
+        proc.WaitForExit();
+        progressBar1.Value = 100;
     }
+}
 }
