@@ -13,7 +13,7 @@ using Emgu.CV.Structure;
 
 namespace Codek_Tester
 {
-    class YUV
+    class YUVLoad
     {
         private int w = 352;
         private int h = 288;
@@ -42,7 +42,7 @@ namespace Codek_Tester
             }
         }
 
-        public YUV()
+        public YUVLoad()
         {
             w = 352;
             h = 288;
@@ -50,7 +50,7 @@ namespace Codek_Tester
             tempImage = new Mat(h, w, DepthType.Default, 1);
         }
 
-        public YUV(string path, int w, int h)
+        public YUVLoad(string path, int w, int h)
         {
             this.w = w;
             this.h = h;
@@ -58,7 +58,7 @@ namespace Codek_Tester
             tempImage = new Mat(h, w, DepthType.Default, 1);
         }
 
-        public YUV(byte[] fileBytes, int w, int h)
+        public YUVLoad(byte[] fileBytes, int w, int h)
         {
             this.w = w;
             this.h = h;

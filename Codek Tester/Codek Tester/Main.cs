@@ -18,14 +18,17 @@ namespace Codek_Tester
 {
     public partial class Main : Form
     {
-        YUV Input;
-        YUV Outout;
+        YUVLoad Input;
+        YUVLoad Outout;
         Mat Origenal = new Mat();
         Mat Encoded = new Mat();
         byte comp = 0;
         double PSNRSUM = 0;
         PSNRForm psnrForm = new PSNRForm();
         Process proc;
+        Capture capture;
+        int frameID = 0;
+        int MaxFrame = 100;
         string openFile, saveFile;
 
         public Main()
@@ -36,8 +39,8 @@ namespace Codek_Tester
             PSNRSUM = 0;
             try
             {
-                Input = new YUV(textBox1.Text, 352, 288);
-                Outout = new YUV(textBox2.Text, 352, 288);
+                Input = new YUVLoad(textBox1.Text, 352, 288);
+                Outout = new YUVLoad(textBox2.Text, 352, 288);
                 Input.ImageGrabbed += ProcessFrameInput;
                 Outout.ImageGrabbed += ProcessFrameOutput;
             }
@@ -105,8 +108,8 @@ namespace Codek_Tester
                 PSNRSUM = 0;
                 comp = 0;
 
-                Input = new YUV(textBox1.Text, 352, 288);
-                Outout = new YUV(textBox2.Text, 352, 288);
+                Input = new YUVLoad(textBox1.Text, 352, 288);
+                Outout = new YUVLoad(textBox2.Text, 352, 288);
                 Input.ImageGrabbed += ProcessFrameInput;
                 Outout.ImageGrabbed += ProcessFrameOutput;
 
@@ -198,6 +201,28 @@ namespace Codek_Tester
                 }
             };
             proc.Start();
+        }
+
+        private void SaveBTN_Click(object sender, EventArgs e)
+        {
+            capture = new Capture("video1.mpg");
+            capture.ImageGrabbed += InputVideo;
+            capture.Start();
+        }
+
+        private void InputVideo(object sender, EventArgs e)
+        {
+            if (frameID++ < MaxFrame)
+            {
+                Mat frame = new Mat();
+                capture.Retrieve(frame);
+                YUVSave.PutImage(frame);
+                YUVSave.SaveToFile();
+            }
+            else
+            {
+                capture.Stop();
+            }
         }
 
         private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)

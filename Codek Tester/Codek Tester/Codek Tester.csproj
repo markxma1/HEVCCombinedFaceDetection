@@ -73,7 +73,8 @@
     <Compile Include="PSNR.Designer.cs">
       <DependentUpon>PSNR.cs</DependentUpon>
     </Compile>
-    <Compile Include="YUV.cs" />
+    <Compile Include="YUVLoad.cs" />
+    <Compile Include="YUVSave.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
