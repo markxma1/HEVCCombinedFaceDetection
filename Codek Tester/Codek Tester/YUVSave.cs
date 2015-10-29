@@ -31,9 +31,9 @@ namespace Codek_Tester
             UBytes = new List<byte>();
             VBytes = new List<byte>();
             int k = 0;
-            for (int i = 0; i < height; i++)
+            for (int i = 0; i < height - (height % 8); i++)
             {
-                for (int j = 0; j < width; j++)
+                for (int j = 0; j < width - (width % 8); j++)
                 {
                     var data = Image.GetData(i, j);
                     var YUVdata = RGBtoYUV(data);
