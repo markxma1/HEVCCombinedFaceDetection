@@ -46,6 +46,7 @@ namespace Codek_Tester
                     k++;
                 }
             }
+
             for (int i = 0; i < YBytes.Count; i++)
             {
                 Bytes.Add(YBytes[i]);
@@ -58,11 +59,19 @@ namespace Codek_Tester
             {
                 Bytes.Add(VBytes[i]);
             }
+
         }
 
         public static void SaveToFile(string path = "test.yuv")
         {
-            File.WriteAllBytes(path, Bytes.ToArray());
+            using (var fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            {
+                fs.Seek(0,SeekOrigin.End);
+                fs.Write(Bytes.ToArray(), 0, Bytes.Count);
+                Bytes = new List<byte>();
+            }
+
+            //File.WriteAllBytes(path, Bytes.ToArray());
         }
 
 
