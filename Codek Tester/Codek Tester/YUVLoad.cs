@@ -18,6 +18,7 @@ namespace Codek_Tester
         private int w = 352;
         private int h = 288;
         private byte[] fileBytes;
+        private FileStream fileStream;
 
         private Mat tempImage;
 
@@ -38,7 +39,11 @@ namespace Codek_Tester
         {
             this.w = w;
             this.h = h;
-            fileBytes = File.ReadAllBytes(path);
+            //fileBytes = File.ReadAllBytes(path);
+            //using (var fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            {
+                fileStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            }
             tempImage = new Mat(h, w, DepthType.Default, 1);
         }
 
@@ -57,19 +62,19 @@ namespace Codek_Tester
 
         public Mat YUVtoMat(ref double k, string format)
         {
-            if (k < fileBytes.Length)
-            {
-                byte[,] Y = new byte[w, h];
-                byte[,] U = new byte[w, h];
-                byte[,] V = new byte[w, h];
+            //if (k < fileBytes.Length)
+            //{
+            byte[,] Y = new byte[w, h];
+            byte[,] U = new byte[w, h];
+            byte[,] V = new byte[w, h];
 
-                Image<Rgb, byte> image = new Image<Rgb, byte>(w, h);
+            Image<Rgb, byte> image = new Image<Rgb, byte>(w, h);
 
-                if (format == "420")
-                    k = YUV420(k, Y, U, V);
+            if (format == "420")
+                k = YUV420(k, Y, U, V);
 
-                return YUVByteToMat(Y, U, V, image);
-            }
+            return YUVByteToMat(Y, U, V, image);
+            //}
             return null;
         }
 
@@ -94,27 +99,31 @@ namespace Codek_Tester
             {
                 for (int j = 0; j < w; j++)
                 {
-                    Y[j, i] = fileBytes[(int)k];
-                    k++;
+                    Y[j, i] = (byte)fileStream.ReadByte();
+                    //Y[j, i] = fileBytes[(int)k];
                 }
             }
 
             for (double i = 0; i < h; i += 2)
             {
-                for (int j = 0; j < w; j++)
+                for (int j = 0; j < w; j += 2)
                 {
-                    U[j, (int)i] = fileBytes[(int)k];
-                    U[j, (int)i + 1] = fileBytes[(int)k];
+                    U[j + 1, (int)i + 1] = U[j + 1, (int)i] = U[j, (int)i + 1] = U[j, (int)i] = (byte)fileStream.ReadByte();
+
+                    //U[j, (int)i] = fileBytes[(int)k];
+                    //U[j, (int)i + 1] = fileBytes[(int)k];
                     k += 0.5;
                 }
             }
 
             for (double i = 0; i < h; i += 2)
             {
-                for (int j = 0; j < w; j++)
+                for (int j = 0; j < w; j += 2)
                 {
-                    V[j, (int)i] = fileBytes[(int)k];
-                    V[j, (int)i + 1] = fileBytes[(int)k];
+                    V[j + 1, (int)i + 1] = V[j + 1, (int)i] = V[j, (int)i + 1] = V[j, (int)i] = (byte)fileStream.ReadByte();
+
+                    //V[j, (int)i] = fileBytes[(int)k];
+                    //V[j, (int)i + 1] = fileBytes[(int)k];
                     k += 0.5;
                 }
             }
@@ -125,7 +134,13 @@ namespace Codek_Tester
         public void Retrieve(Mat frame, int v = 0)
         {
             busy = true;
-            tempImage.CopyTo(frame);
+            lock (tempImage)
+            {
+                lock (frame)
+                {
+                    tempImage.CopyTo(frame);
+                }
+            }
             busy = false;
         }
 

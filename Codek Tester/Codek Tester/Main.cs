@@ -40,14 +40,14 @@ namespace Codek_Tester
             psnrForm.Show();
             CvInvoke.UseOpenCL = false;
             PSNRDurch = 0;
-            try
-            {
-                Input = new YUVLoad(textBox1.Text, 352, 288);
-                Outout = new YUVLoad(textBox2.Text, 352, 288);
-                Input.ImageGrabbed += ProcessFrameInput;
-                Outout.ImageGrabbed += ProcessFrameOutput;
-            }
-            catch (Exception ex) { }
+            //try
+            //{
+            //    Input = new YUVLoad(textBox1.Text, 352, 288);
+            //    Outout = new YUVLoad(textBox2.Text, 352, 288);
+            //    Input.ImageGrabbed += ProcessFrameInput;
+            //    Outout.ImageGrabbed += ProcessFrameOutput;
+            //}
+            //catch (Exception ex) { }
         }
 
         private void button4_Click(object sender, EventArgs e)
