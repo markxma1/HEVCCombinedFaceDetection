@@ -20,27 +20,11 @@ namespace Codek_Tester
         private byte[] fileBytes;
 
         private Mat tempImage;
-        private bool start = false;
+
         private Thread st;
         public bool busy = false;
 
         public Action<object, EventArgs> ImageGrabbed { get; internal set; }
-
-        public bool isOn
-        {
-            get
-            {
-                return start;
-            }
-        }
-
-        public bool isOff
-        {
-            get
-            {
-                return !start;
-            }
-        }
 
         public YUVLoad()
         {
@@ -210,5 +194,23 @@ namespace Codek_Tester
             else
                 return b;
         }
+
+        private bool start = false;
+        public bool isOn
+        {
+            get
+            {
+                return start;
+            }
+        }
+
+        public bool isOff
+        {
+            get
+            {
+                return !start;
+            }
+        }
+
     }
 }
