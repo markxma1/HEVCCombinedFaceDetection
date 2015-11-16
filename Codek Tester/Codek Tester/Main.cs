@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Emgu.CV;
+using System;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Emgu.CV;
-using Emgu.CV.UI;
-using Emgu.CV.CvEnum;
-using Emgu.CV.Util;
-using Emgu.CV.Structure;
 using System.Diagnostics;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Codek_Tester
 {
@@ -24,6 +15,7 @@ namespace Codek_Tester
         YUVLoad Outout;
         Mat Origenal = new Mat();
         Mat Encoded = new Mat();
+        Mat diff = new Mat();
         byte comp = 0;
         double PSNRDurch = 0;
         PSNRForm psnrForm = new PSNRForm();
@@ -40,14 +32,6 @@ namespace Codek_Tester
             psnrForm.Show();
             CvInvoke.UseOpenCL = false;
             PSNRDurch = 0;
-            //try
-            //{
-            //    Input = new YUVLoad(textBox1.Text, 352, 288);
-            //    Outout = new YUVLoad(textBox2.Text, 352, 288);
-            //    Input.ImageGrabbed += ProcessFrameInput;
-            //    Outout.ImageGrabbed += ProcessFrameOutput;
-            //}
-            //catch (Exception ex) { }
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -78,13 +62,9 @@ namespace Codek_Tester
                 if (Outout.isOn)
                 {
                     while (!((comp == 0) || (comp == 2))) ;
-
-                    Mat frame = new Mat();
-                    Input.Retrieve(frame);
-                    frame.CopyTo(Origenal);
-                    pictureBox1.Image = new Bitmap(frame.Bitmap);
+                    Origenal = new Mat();
+                    Input.Retrieve(Origenal);
                     comp = (byte)(comp | 1);
-                    Compare();
                 }
             }
             catch (Exception ex) { }
@@ -97,13 +77,9 @@ namespace Codek_Tester
                 if (Input.isOn)
                 {
                     while (!((comp == 0) || (comp == 1))) ;
-
-                    Mat frame = new Mat();
-                    Outout.Retrieve(frame);
-                    frame.CopyTo(Encoded);
-                    pictureBox2.Image = new Bitmap(frame.Bitmap);
+                    Encoded = new Mat();
+                    Outout.Retrieve(Encoded);
                     comp = (byte)(comp | 2);
-                    Compare();
                 }
             }
             catch (Exception ex) { }
@@ -116,13 +92,11 @@ namespace Codek_Tester
                 if (!stopComp)
                 {
                     while (!((comp == 0) || (comp == 2))) ;
-
-                    Mat frame = new Mat();
-                    Input2.Retrieve(frame);
-                    frame.CopyTo(Origenal);
-                    pictureBox1.Image = new Bitmap(frame.Bitmap);
-                    comp = (byte)(comp | 1);
-                    Compare();
+                    {
+                        Origenal = new Mat();
+                        Input2.Retrieve(Origenal);
+                        comp = (byte)(comp | 1);
+                    }
                 }
             }
             catch (Exception ex) { }
@@ -135,13 +109,11 @@ namespace Codek_Tester
                 if (!stopComp)
                 {
                     while (!((comp == 0) || (comp == 1))) ;
-
-                    Mat frame = new Mat();
-                    Output2.Retrieve(frame);
-                    frame.CopyTo(Encoded);
-                    pictureBox2.Image = new Bitmap(frame.Bitmap);
-                    comp = (byte)(comp | 2);
-                    Compare();
+                    {
+                        Encoded = new Mat();
+                        Output2.Retrieve(Encoded);
+                        comp = (byte)(comp | 2);
+                    }
                 }
             }
             catch (Exception ex) { }
@@ -151,15 +123,34 @@ namespace Codek_Tester
         {
             if (comp == 3)
             {
+                comp = 4;
                 frameID++;
-                var PSNR = CvInvoke.PSNR(Origenal, Encoded);
-                PSNRDurch = (PSNRDurch * (frameID - 1) + PSNR) / frameID;
-                this.Invoke((Action)delegate
+                try
                 {
-                    psnrLabel.Text = PSNR.ToString();
-                    psnrsumLabel.Text = PSNRDurch.ToString();
-                    psnrForm.addPSNR(PSNR);
-                });
+                    double PSNR;
+                    Mat b0 = Origenal.Clone();
+                    Mat b1 = Encoded.Clone();
+                    PSNR = CvInvoke.PSNR(b0, b1);
+                    PSNRDurch = (PSNRDurch * (frameID - 1) + PSNR) / frameID;
+                    diff = new Mat();
+                    CvInvoke.AbsDiff(Origenal, Encoded, diff);
+                    pictureBox1.Image = new Bitmap(Origenal.Bitmap);
+                    pictureBox2.Image = new Bitmap(Encoded.Bitmap);
+                    pictureBox3.Image = new Bitmap(diff.Bitmap);
+                    this.Invoke((Action)delegate
+                    {
+                        try
+                        {
+                            psnrLabel.Text = PSNR.ToString();
+                            psnrsumLabel.Text = PSNRDurch.ToString();
+                            psnrForm.addPSNR(PSNR);
+                        }
+                        catch (Exception ex)
+                        { }
+                    });
+                }
+                catch (Exception ex)
+                { }
                 comp = 0;
             }
         }
@@ -341,6 +332,11 @@ namespace Codek_Tester
                 Outout.ImageGrabbed += ProcessFrameOutput;
             }
             catch (Exception ex) { }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            Compare();
         }
 
         private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)

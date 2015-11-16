@@ -24,6 +24,7 @@ namespace Codek_Tester
 
         private Thread st;
         public bool busy = false;
+        private bool start = false;
 
         public Action<object, EventArgs> ImageGrabbed { get; internal set; }
 
@@ -75,7 +76,7 @@ namespace Codek_Tester
 
             return YUVByteToMat(Y, U, V, image);
             //}
-            return null;
+            //return null;
         }
 
         private Mat YUVByteToMat(byte[,] Y, byte[,] U, byte[,] V, Image<Rgb, byte> image)
@@ -158,7 +159,7 @@ namespace Codek_Tester
                   Mat temp = YUV420toMat(ref k);
                   if (temp != null)
                   {
-                      tempImage = temp;
+                      tempImage = temp.Clone();
                   }
                   else { Stop(); }
                   ImageGrabbed(null, null);
@@ -210,7 +211,6 @@ namespace Codek_Tester
                 return b;
         }
 
-        private bool start = false;
         public bool isOn
         {
             get
