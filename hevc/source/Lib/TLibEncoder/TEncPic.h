@@ -59,7 +59,7 @@ public:
   ~TEncQPAdaptationUnit();
 
   Void   setActivity( Double d ) { m_dActivity = d; }
-  Double getActivity()           { return m_dActivity; }
+  Double getActivity() {return m_dActivity; }
 };
 
 /// Local image characteristics for CUs on a specific depth

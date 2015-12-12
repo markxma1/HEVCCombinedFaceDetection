@@ -45,6 +45,7 @@
 #include "TLibCommon/CommonDef.h"
 #include "TLibCommon/TComSlice.h"
 #include <assert.h>
+#include "ObjectQPParameter.h"
 
 struct GOPEntry
 {
@@ -186,6 +187,9 @@ protected:
   Int       m_chromaCbQpOffset;                 //  Chroma Cb QP Offset (0:default)
   Int       m_chromaCrQpOffset;                 //  Chroma Cr Qp Offset (0:default)
   ChromaFormat m_chromaFormatIDC;
+  string ObjectQP;
+  ObjectQPFrame* m_iObjectFrame;
+
 
 #if ADAPTIVE_QP_SELECTION
   Bool      m_bUseAdaptQpSelect;
@@ -479,6 +483,9 @@ public:
 
   Void      setChromaFormatIdc              ( ChromaFormat cf ) { m_chromaFormatIDC = cf; }
   ChromaFormat  getChromaFormatIdc          ( )              { return m_chromaFormatIDC; }
+
+  Void      setObjectQP(string filePath) { ObjectQP = filePath; }
+  string      getObjectQP() { return   ObjectQP; }
 
 #if ADAPTIVE_QP_SELECTION
   Void      setUseAdaptQpSelect             ( Bool   i ) { m_bUseAdaptQpSelect    = i; }

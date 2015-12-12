@@ -217,6 +217,7 @@ Void TEncCu::init( TEncTop* pcEncTop )
   m_pcRDGoOnSbacCoder  = pcEncTop->getRDGoOnSbacCoder();
 
   m_pcRateCtrl         = pcEncTop->getRateCtrl();
+ 
 }
 
 // ====================================================================================================================
@@ -373,7 +374,7 @@ Void TEncCu::xCompressCU( TComDataCU*& rpcBestCU, TComDataCU*& rpcTempCU, const 
   const UInt uiBPelY   = uiTPelY + rpcBestCU->getHeight(0) - 1;
   const UInt uiWidth   = rpcBestCU->getWidth(0);
 
-  Int iBaseQP = xComputeQP( rpcBestCU, uiDepth );
+  Int iBaseQP = xComputeQP( rpcBestCU, uiDepth ); //TODO
   Int iMinQP;
   Int iMaxQP;
   Bool isAddLowestQP = false;
@@ -923,7 +924,13 @@ Int TEncCu::xComputeQP( TComDataCU* pcCU, UInt uiDepth )
     iQpOffset = Int(floor( dQpOffset + 0.49999 ));
   }
 
-  return Clip3(-pcCU->getSlice()->getSPS()->getQpBDOffset(CHANNEL_TYPE_LUMA), MAX_QP, iBaseQp+iQpOffset );
+  m_pcEncCfg->getObjectQP
+
+  //TODO Hier ist das beste platz um funktion zu schreiben!!!! MaxCuDQPDepth       = 1          
+  int test3 = 0;
+  if(pcCU->getCUPelX()<100|| pcCU->getCUPelX()>200|| pcCU->getCUPelY()<50 || pcCU->getCUPelY()>150)
+  test3 = 100;
+  return Clip3(-pcCU->getSlice()->getSPS()->getQpBDOffset(CHANNEL_TYPE_LUMA), MAX_QP,iBaseQp+iQpOffset+test3);
 }
 
 /** encode a CU block recursively

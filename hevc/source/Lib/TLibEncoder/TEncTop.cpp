@@ -41,6 +41,7 @@
 #include "TLibCommon/TComChromaFormat.h"
 #if FAST_BIT_EST
 #include "TLibCommon/ContextModel.h"
+#include "ObjectQPParameter.h"
 #endif
 
 //! \ingroup TLibEncoder
@@ -324,6 +325,11 @@ Void TEncTop::encode( Bool flush, TComPicYuv* pcPicYuvOrg, TComPicYuv* pcPicYuvT
     xGetNewPicBuffer( pcPicCurr );
     pcPicYuvOrg->copyToPic( pcPicCurr->getPicYuvOrg() );
     pcPicYuvTrueOrg->copyToPic( pcPicCurr->getPicYuvTrueOrg() );
+
+	if (getObjectQP() != "")
+	{
+		m_iObjectFrame = readObjectQPFile(getObjectQP());
+	}
 
     // compute image characteristics
     if ( getUseAdaptiveQP() )

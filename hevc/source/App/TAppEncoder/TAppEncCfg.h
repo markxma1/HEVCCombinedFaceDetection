@@ -140,6 +140,8 @@ protected:
   Int       m_cbQpOffset;                                     ///< Chroma Cb QP Offset (0:default)
   Int       m_crQpOffset;                                     ///< Chroma Cr QP Offset (0:default)
 
+  string       ObjectQP;                                     ///< NEW Read File with QP Information (Frame X Y W H QT NewLine)
+
 #if ADAPTIVE_QP_SELECTION
   Bool      m_bUseAdaptQpSelect;
 #endif

@@ -154,6 +154,7 @@ Void TAppEncTop::xInitLibCfg()
   m_cTEncTop.setChromaCrQpOffset                                  ( m_crQpOffset  );
 
   m_cTEncTop.setChromaFormatIdc                                   ( m_chromaFormatIDC  );
+  m_cTEncTop.setObjectQP(ObjectQP);  //NEW My Code
 
 #if ADAPTIVE_QP_SELECTION
   m_cTEncTop.setUseAdaptQpSelect                                  ( m_bUseAdaptQpSelect   );
