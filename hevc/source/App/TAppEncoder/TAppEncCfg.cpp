@@ -830,7 +830,7 @@ Bool TAppEncCfg::parseCfg( Int argc, Char* argv[] )
   ("CbQpOffset,-cbqpofs",                             m_cbQpOffset,                                         0, "Chroma Cb QP Offset")
   ("CrQpOffset,-crqpofs",                             m_crQpOffset,                                         0, "Chroma Cr QP Offset")
   
-  ("ObjectQT,-objqt", ObjectQP, "", "NEW Read File with QP Information (Frame X Y W H QT NewLine)")
+  ("ObjectQT,-objqt", ObjectQP, string(""), "NEW Read File with QP Information (Frame X Y W H QT NewLine)")
 
 #if ADAPTIVE_QP_SELECTION
   ("AdaptiveQpSelection,-aqps",                       m_bUseAdaptQpSelect,                              false, "AdaptiveQpSelection")
@@ -2326,7 +2326,7 @@ Void TAppEncCfg::xPrintParameter()
   printf("Sequence MSE output                    : %s\n", (m_printSequenceMSE ? "Enabled" : "Disabled") );
   printf("Frame MSE output                       : %s\n", (m_printFrameMSE    ? "Enabled" : "Disabled") );
   printf("Cabac-zero-word-padding                : %s\n", (m_cabacZeroWordPaddingEnabled? "Enabled" : "Disabled") );
-  printf("ObjectQP File                : %s\n", ObjectQP);
+  printf("ObjectQP File                          : %s\n",  ObjectQP.c_str());
   if (m_isField)
   {
     printf("Frame/Field                            : Field based coding\n");

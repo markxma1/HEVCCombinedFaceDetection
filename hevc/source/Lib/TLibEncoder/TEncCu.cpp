@@ -924,7 +924,7 @@ Int TEncCu::xComputeQP( TComDataCU* pcCU, UInt uiDepth )
     iQpOffset = Int(floor( dQpOffset + 0.49999 ));
   }
 
-  m_pcEncCfg->getObjectQP
+  //m_pcEncCfg->getObjectQP
 
   //TODO Hier ist das beste platz um funktion zu schreiben!!!! MaxCuDQPDepth       = 1          
   int test3 = 0;
