@@ -188,7 +188,7 @@ protected:
   Int       m_chromaCrQpOffset;                 //  Chroma Cr Qp Offset (0:default)
   ChromaFormat m_chromaFormatIDC;
   string ObjectQP;
-  ObjectQPFrame* m_iObjectFrame;
+  vector< ObjectQPFrame > m_ObjectFrame;
 
 
 #if ADAPTIVE_QP_SELECTION
@@ -484,8 +484,11 @@ public:
   Void      setChromaFormatIdc              ( ChromaFormat cf ) { m_chromaFormatIDC = cf; }
   ChromaFormat  getChromaFormatIdc          ( )              { return m_chromaFormatIDC; }
 
-  Void      setObjectQP(string filePath) { ObjectQP = filePath; }
-  string      getObjectQP() { return   ObjectQP; }
+  Void      setObjectQPPath(string filePath) { ObjectQP = filePath; }
+  string      getObjectQPPath() { return   ObjectQP; }
+
+  Void      setObjectQP(vector< ObjectQPFrame > QP) { m_ObjectFrame = QP; }
+  ObjectQPFrame      getObjectQP(int i) { return   m_ObjectFrame[findObjectFrame(i, m_ObjectFrame)]; }
 
 #if ADAPTIVE_QP_SELECTION
   Void      setUseAdaptQpSelect             ( Bool   i ) { m_bUseAdaptQpSelect    = i; }
