@@ -240,6 +240,7 @@ Void TEncSearch::init(TEncCfg*      pcEncCfg,
                       )
 {
   assert (!m_isInitialized);
+
   m_pcEncCfg             = pcEncCfg;
   m_pcTrQuant            = pcTrQuant;
   m_iSearchRange         = iSearchRange;

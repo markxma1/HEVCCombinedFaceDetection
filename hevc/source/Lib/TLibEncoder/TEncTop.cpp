@@ -181,6 +181,7 @@ Void TEncTop::destroy ()
 
 Void TEncTop::init(Bool isFieldCoding)
 {
+
   // initialize SPS
   xInitSPS();
   xInitVPS();
@@ -325,11 +326,6 @@ Void TEncTop::encode( Bool flush, TComPicYuv* pcPicYuvOrg, TComPicYuv* pcPicYuvT
     xGetNewPicBuffer( pcPicCurr );
     pcPicYuvOrg->copyToPic( pcPicCurr->getPicYuvOrg() );
     pcPicYuvTrueOrg->copyToPic( pcPicCurr->getPicYuvTrueOrg() );
-
-	if (getObjectQP() != "")
-	{
-		m_iObjectFrame = readObjectQPFile(getObjectQP());
-	}
 
     // compute image characteristics
     if ( getUseAdaptiveQP() )
