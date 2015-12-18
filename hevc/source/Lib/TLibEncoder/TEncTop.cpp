@@ -388,7 +388,6 @@ Void TEncTop::encode(Bool flush, TComPicYuv* pcPicYuvOrg, TComPicYuv* pcPicYuvTr
   {
     if (pcPicYuvOrg)
     {
-
       /* -- field initialization -- */
       const Bool isTopField=isTff==(fieldNum==0);
 

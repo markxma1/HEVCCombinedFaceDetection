@@ -68,7 +68,7 @@ vector< ObjectQPFrame > readObjectQPFile(std::string filePath)
 	return ObArr;
 }
 
-Int findObjectFrame(int i, vector< ObjectQPFrame > Fr)
+int findObjectFrame(int i, vector< ObjectQPFrame > Fr)
 {
 	for (int j = 0; j < Fr.size(); j++)
 	{

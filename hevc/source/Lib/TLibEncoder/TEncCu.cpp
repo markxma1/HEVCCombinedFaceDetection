@@ -205,11 +205,6 @@ Void TEncCu::destroy()
  */
 Void TEncCu::init(TEncTop* pcEncTop)
 {
-	//reade ObjectQP Data
-	if (pcEncTop->getObjectQPPath() != "")
-	{
-		pcEncTop->setObjectQP(readObjectQPFile(m_pcEncCfg->getObjectQPPath()));
-	}
 	m_pcEncCfg = pcEncTop;
 	m_pcPredSearch = pcEncTop->getPredSearch();
 	m_pcTrQuant = pcEncTop->getTrQuant();
@@ -223,6 +218,12 @@ Void TEncCu::init(TEncTop* pcEncTop)
 
 	m_pcRateCtrl = pcEncTop->getRateCtrl();
 
+	//TODO Load file here
+	//reade ObjectQP Data
+	if (m_pcEncCfg->getObjectQPPath() != "")
+	{
+		m_pcEncCfg->setObjectQP(readObjectQPFile(m_pcEncCfg->getObjectQPPath()));
+	}
 }
 
 // ====================================================================================================================
@@ -911,16 +912,7 @@ Int TEncCu::xComputeQP(TComDataCU* pcCU, UInt uiDepth)
 {
 	Int iBaseQp = pcCU->getSlice()->getSliceQp();
 	Int iQpOffset = 0;
-
-	int ObX1 = m_pcEncCfg->getObjectQP(1).parameter[0].X;
-	int ObX2 = m_pcEncCfg->getObjectQP(1).parameter[0].X + m_pcEncCfg->getObjectQP(1).parameter[0].Width;
-	int ObY1 = m_pcEncCfg->getObjectQP(1).parameter[0].Y;
-	int ObY2 = m_pcEncCfg->getObjectQP(1).parameter[0].Y + m_pcEncCfg->getObjectQP(1).parameter[0].Hight;
-	int ObQP = m_pcEncCfg->getObjectQP(1).parameter[0].QP;
-
-	if (pcCU->getCUPelX() > ObX1 && pcCU->getCUPelX() < ObX2 && pcCU->getCUPelY() > ObY1 && pcCU->getCUPelY() < ObY2)
-		iBaseQp = ObQP;
-
+	
 	if (m_pcEncCfg->getUseAdaptiveQP())
 	{
 		TEncPic* pcEPic = dynamic_cast<TEncPic*>(pcCU->getPic());
@@ -930,6 +922,25 @@ Int TEncCu::xComputeQP(TComDataCU* pcCU, UInt uiDepth)
 		UInt uiAQUPosY = pcCU->getCUPelY() / pcAQLayer->getAQPartHeight();
 		UInt uiAQUStride = pcAQLayer->getAQPartStride();
 		TEncQPAdaptationUnit* acAQU = pcAQLayer->getQPAdaptationUnit();
+
+		//TODO get QP From File
+		int ObX1=0;
+		int ObX2=0;
+		int ObY1=0;
+		int ObY2=0;
+		int ObQP=0;
+		//pcCU-> setQP
+		for (int i = 0; i < m_pcEncCfg->getObjectQP(1).parameter.size(); i++)
+		{
+			int ObX1 = m_pcEncCfg->getObjectQP(1).parameter[i].X;
+			int ObX2 = m_pcEncCfg->getObjectQP(1).parameter[i].X + m_pcEncCfg->getObjectQP(1).parameter[0].Width;
+			int ObY1 = m_pcEncCfg->getObjectQP(1).parameter[i].Y;
+			int ObY2 = m_pcEncCfg->getObjectQP(1).parameter[i].Y + m_pcEncCfg->getObjectQP(1).parameter[0].Hight;
+			int ObQP = m_pcEncCfg->getObjectQP(1).parameter[i].QP;
+		}
+
+		if (pcCU->getCUPelX() >= ObX1 && pcCU->getCUPelX() <= ObX2 && pcCU->getCUPelY() >= ObY1 && pcCU->getCUPelY() <= ObY2)
+			iBaseQp = ObQP;
 
 		Double dMaxQScale = pow(2.0, m_pcEncCfg->getQPAdaptationRange() / 6.0);
 		Double dAvgAct = pcAQLayer->getAvgActivity();
