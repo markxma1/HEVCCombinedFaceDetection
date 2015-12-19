@@ -248,7 +248,7 @@ public:
   Void          setSizeSubParts       ( UInt uiWidth, UInt uiHeight, UInt uiAbsPartIdx, UInt uiDepth );
 
   Char*         getQP                 ()                        { return m_phQP;              }
-  Char          getQP                 ( UInt uiIdx ) const      { return m_phQP[uiIdx];       }
+  Char          getQP(UInt uiIdx) const { return m_phQP[uiIdx]; }
   Void          setQP                 ( UInt uiIdx, Char value ){ m_phQP[uiIdx] =  value;     }
   Void          setQPSubParts         ( Int qp,   UInt uiAbsPartIdx, UInt uiDepth );
   Int           getLastValidPartIdx   ( Int iAbsPartIdx );

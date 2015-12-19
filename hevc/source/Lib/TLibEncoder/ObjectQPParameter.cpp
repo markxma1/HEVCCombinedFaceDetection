@@ -61,7 +61,7 @@ vector< ObjectQPFrame > readObjectQPFile(std::string filePath)
 			ss >> parameter->Width;
 			ss >> parameter->Hight;
 			ss >> parameter->QP;
-
+			ss >> parameter->Invert;
 			PaArr->push_back(*parameter);
 		}
 		object->parameter = *PaArr;

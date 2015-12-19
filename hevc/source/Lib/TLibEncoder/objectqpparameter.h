@@ -28,6 +28,7 @@ public:
 	int Width;
 	int Hight;
 	int QP;
+	bool Invert;
 };
 
 class ObjectQPFrame

@@ -133,7 +133,7 @@ Void TEncPreanalyzer::xPreanalyze( TEncPic* pcEPic )
       pLineY += iStride * uiCurrAQPartHeight;
     }
 
-    const Double dAvgAct = dSumAct / (pcAQLayer->getNumAQPartInWidth() * pcAQLayer->getNumAQPartInHeight());
+	const Double dAvgAct = dSumAct / (pcAQLayer->getNumAQPartInWidth() * pcAQLayer->getNumAQPartInHeight());
     pcAQLayer->setAvgActivity( dAvgAct );
   }
 }
