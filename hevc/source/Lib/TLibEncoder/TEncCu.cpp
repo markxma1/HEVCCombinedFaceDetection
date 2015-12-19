@@ -218,12 +218,6 @@ Void TEncCu::init(TEncTop* pcEncTop)
 
 	m_pcRateCtrl = pcEncTop->getRateCtrl();
 
-	//TODO Load file here
-	//reade ObjectQP Data
-	if (m_pcEncCfg->getObjectQPPath() != "")
-	{
-		m_pcEncCfg->setObjectQP(readObjectQPFile(m_pcEncCfg->getObjectQPPath()));
-	}
 }
 
 // ====================================================================================================================
@@ -380,7 +374,7 @@ Void TEncCu::xCompressCU(TComDataCU*& rpcBestCU, TComDataCU*& rpcTempCU, const U
 	const UInt uiBPelY = uiTPelY + rpcBestCU->getHeight(0) - 1;
 	const UInt uiWidth = rpcBestCU->getWidth(0);
 
-	Int iBaseQP = xComputeQP(rpcBestCU, uiDepth); //TODO
+	Int iBaseQP = xComputeQP(rpcBestCU, uiDepth); //TODO <--
 	Int iMinQP;
 	Int iMaxQP;
 	Bool isAddLowestQP = false;
@@ -910,10 +904,17 @@ Void TEncCu::finishCU(TComDataCU* pcCU, UInt uiAbsPartIdx)
  */
 Int TEncCu::xComputeQP(TComDataCU* pcCU, UInt uiDepth)
 {
+	//TODO Load file here
+	//reade ObjectQP Data
+	if (m_pcEncCfg->getObjectQPPath() != "")
+	{
+		setObjectQP(readObjectQPFile(m_pcEncCfg->getObjectQPPath()));
+	}
+
 	Int iBaseQp = pcCU->getSlice()->getSliceQp();
 	Int iQpOffset = 0;
-	
-	if (m_pcEncCfg->getUseAdaptiveQP())
+
+	if (m_pcEncCfg->getObjectQPPath() != "")
 	{
 		TEncPic* pcEPic = dynamic_cast<TEncPic*>(pcCU->getPic());
 		UInt uiAQDepth = min(uiDepth, pcEPic->getMaxAQDepth() - 1);
@@ -924,23 +925,35 @@ Int TEncCu::xComputeQP(TComDataCU* pcCU, UInt uiDepth)
 		TEncQPAdaptationUnit* acAQU = pcAQLayer->getQPAdaptationUnit();
 
 		//TODO get QP From File
-		int ObX1=0;
-		int ObX2=0;
-		int ObY1=0;
-		int ObY2=0;
-		int ObQP=0;
-		//pcCU-> setQP
-		for (int i = 0; i < m_pcEncCfg->getObjectQP(1).parameter.size(); i++)
+		int ObX1 = 0;
+		int ObX2 = 0;
+		int ObY1 = 0;
+		int ObY2 = 0;
+		int ObQP = 0;
+		int frame = ObjectInFrame::iFrame;
+
+		for (int i = 0; i < getObjectQP(frame).parameter.size(); i++)
 		{
-			int ObX1 = m_pcEncCfg->getObjectQP(1).parameter[i].X;
-			int ObX2 = m_pcEncCfg->getObjectQP(1).parameter[i].X + m_pcEncCfg->getObjectQP(1).parameter[0].Width;
-			int ObY1 = m_pcEncCfg->getObjectQP(1).parameter[i].Y;
-			int ObY2 = m_pcEncCfg->getObjectQP(1).parameter[i].Y + m_pcEncCfg->getObjectQP(1).parameter[0].Hight;
-			int ObQP = m_pcEncCfg->getObjectQP(1).parameter[i].QP;
+			ObX1 = getObjectQP(frame).parameter[i].X;
+			ObX2 = getObjectQP(frame).parameter[i].X + getObjectQP(frame).parameter[i].Width;
+			ObY1 = getObjectQP(frame).parameter[i].Y;
+			ObY2 = getObjectQP(frame).parameter[i].Y + getObjectQP(frame).parameter[i].Hight;
+			ObQP = getObjectQP(frame).parameter[i].QP;
 		}
 
 		if (pcCU->getCUPelX() >= ObX1 && pcCU->getCUPelX() <= ObX2 && pcCU->getCUPelY() >= ObY1 && pcCU->getCUPelY() <= ObY2)
 			iBaseQp = ObQP;
+	}
+
+	if (m_pcEncCfg->getUseAdaptiveQP())
+	{
+		TEncPic* pcEPic = dynamic_cast<TEncPic*>(pcCU->getPic());
+		UInt uiAQDepth = min(uiDepth, pcEPic->getMaxAQDepth() - 1);
+		TEncPicQPAdaptationLayer* pcAQLayer = pcEPic->getAQLayer(uiAQDepth);
+		UInt uiAQUPosX = pcCU->getCUPelX() / pcAQLayer->getAQPartWidth();
+		UInt uiAQUPosY = pcCU->getCUPelY() / pcAQLayer->getAQPartHeight();
+		UInt uiAQUStride = pcAQLayer->getAQPartStride();
+		TEncQPAdaptationUnit* acAQU = pcAQLayer->getQPAdaptationUnit();
 
 		Double dMaxQScale = pow(2.0, m_pcEncCfg->getQPAdaptationRange() / 6.0);
 		Double dAvgAct = pcAQLayer->getAvgActivity();

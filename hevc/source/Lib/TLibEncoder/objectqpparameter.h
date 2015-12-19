@@ -13,6 +13,10 @@
 
 using namespace std;
 
+namespace ObjectInFrame
+{
+	extern int iFrame;
+}
 class ObjectQPParameter
 {
 public:
@@ -37,8 +41,10 @@ public:
 	vector< ObjectQPParameter > parameter;
 };
 
-//int frame = 0;
-
-vector< ObjectQPFrame > readObjectQPFile(std::string filePath);
+vector< ObjectQPFrame > readObjectQPFile(string filePath);
 int findObjectFrame(int i, vector< ObjectQPFrame > Fr);
+
+
+	 void setObjectQP(vector< ObjectQPFrame > QP);
+	 ObjectQPFrame getObjectQP(int i);
 #endif

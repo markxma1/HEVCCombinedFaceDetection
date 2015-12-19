@@ -487,6 +487,7 @@ Void TAppEncTop::encode()
 
     // increase number of received frames
     m_iFrameRcvd++;
+	ObjectInFrame::iFrame = m_iFrameRcvd;
 
     bEos = (m_isField && (m_iFrameRcvd == (m_framesToBeEncoded >> 1) )) || ( !m_isField && (m_iFrameRcvd == m_framesToBeEncoded) );
 
