@@ -1441,7 +1441,7 @@ public:
   NalUnitType                 getAssociatedIRAPType() const                          { return m_iAssociatedIRAPType;                                 }
   SliceType                   getSliceType() const                                   { return m_eSliceType;                                          }
   Int                         getPOC() const                                         { return m_iPOC;                                                }
-  Int                         getSliceQp() const { return m_iSliceQp;}
+  Int                         getSliceQp() const { return  m_iSliceQp; } 
   Bool                        getDependentSliceSegmentFlag() const                   { return m_dependentSliceSegmentFlag;                           }
   Void                        setDependentSliceSegmentFlag(Bool val)                 { m_dependentSliceSegmentFlag = val;                            }
 #if ADAPTIVE_QP_SELECTION

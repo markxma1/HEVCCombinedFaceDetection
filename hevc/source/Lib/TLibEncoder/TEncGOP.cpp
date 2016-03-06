@@ -1350,7 +1350,7 @@ Void TEncGOP::compressGOP( Int iPOCLast, Int iNumPicRcvd, TComList<TComPic*>& rc
       m_pcRateCtrl->initRCPic( frameLevel );
       estimatedBits = m_pcRateCtrl->getRCPic()->getTargetBits();
 
-      Int sliceQP = m_pcCfg->getInitialQP();
+	  Int sliceQP = 51;//m_pcCfg->getInitialQP();
       if ( ( pcSlice->getPOC() == 0 && m_pcCfg->getInitialQP() > 0 ) || ( frameLevel == 0 && m_pcCfg->getForceIntraQP() ) ) // QP is specified
       {
         Int    NumberBFrames = ( m_pcCfg->getGOPSize() - 1 );
@@ -2412,7 +2412,7 @@ Void TEncGOP::applyDeblockingFilterMetric( TComPic* pcPic, UInt uiNumSlices )
   UInt rowIdx = 0;
   Pel p0, p1, p2, q0, q1, q2;
 
-  Int qp = pcPic->getSlice(0)->getSliceQp();
+  Int qp = pcPic->getSlice(0)->getSliceQp();  ///TODO Check Here
   const Int bitDepthLuma=pcPic->getSlice(0)->getSPS()->getBitDepth(CHANNEL_TYPE_LUMA);
   Int bitdepthScale = 1 << (bitDepthLuma-8);
   Int beta = TComLoopFilter::getBeta( qp ) * bitdepthScale;

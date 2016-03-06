@@ -233,14 +233,16 @@ Void TEncCu::compressCtu(TComDataCU* pCtu)
 	m_ppcBestCU[0]->initCtu(pCtu->getPic(), pCtu->getCtuRsAddr());
 	m_ppcTempCU[0]->initCtu(pCtu->getPic(), pCtu->getCtuRsAddr());
 
+	pCtu->setQP(0, 51);
 	// analysis of CU
 	DEBUG_STRING_NEW(sDebug)
 
 		xCompressCU(m_ppcBestCU[0], m_ppcTempCU[0], 0 DEBUG_STRING_PASS_INTO(sDebug));
 	DEBUG_STRING_OUTPUT(std::cout, sDebug)
 
+		//TODO CHeck here
 #if ADAPTIVE_QP_SELECTION
-		if (m_pcEncCfg->getUseAdaptQpSelect())
+		if (m_pcEncCfg->getUseAdaptQpSelect() || m_pcEncCfg->getObjectQPPath() != "")
 		{
 			if (pCtu->getSlice()->getSliceType() != I_SLICE) //IIII
 			{
@@ -776,13 +778,13 @@ Void TEncCu::xCompressCU(TComDataCU*& rpcBestCU, TComDataCU*& rpcTempCU, const U
 
 						rpcTempCU->copyPartFrom(pcSubBestPartCU, uiPartUnitIdx, uhNextDepth);         // Keep best part data to current temporary data.
 						xCopyYuv2Tmp(pcSubBestPartCU->getTotalNumPart()*uiPartUnitIdx, uhNextDepth);
-					}
+							}
 					else
 					{
 						pcSubBestPartCU->copyToPic(uhNextDepth);
 						rpcTempCU->copyPartFrom(pcSubBestPartCU, uiPartUnitIdx, uhNextDepth);
 					}
-				}
+					}
 
 			m_pcRDGoOnSbacCoder->load(m_pppcRDSbacCoder[uhNextDepth][CI_NEXT_BEST]);
 			if (!bBoundary)
@@ -852,8 +854,8 @@ Void TEncCu::xCompressCU(TComDataCU*& rpcBestCU, TComDataCU*& rpcTempCU, const U
 
 			xCheckBestMode(rpcBestCU, rpcTempCU, uiDepth DEBUG_STRING_PASS_INTO(sDebug) DEBUG_STRING_PASS_INTO(sTempDebug) DEBUG_STRING_PASS_INTO(false)); // RD compare current larger prediction
 																																							 // with sub partitioned prediction.
+				}
 		}
-	}
 
 	DEBUG_STRING_APPEND(sDebug_, sDebug);
 
@@ -870,7 +872,7 @@ Void TEncCu::xCompressCU(TComDataCU*& rpcBestCU, TComDataCU*& rpcTempCU, const U
 	assert(rpcBestCU->getPartitionSize(0) != NUMBER_OF_PART_SIZES);
 	assert(rpcBestCU->getPredictionMode(0) != NUMBER_OF_PREDICTION_MODES);
 	assert(rpcBestCU->getTotalCost() != MAX_DOUBLE);
-}
+	}
 
 /** finish encoding a cu and handle end-of-slice conditions
  * \param pcCU
@@ -937,9 +939,17 @@ Int TEncCu::xComputeQP(TComDataCU* pcCU, UInt uiDepth)
 			ObQP = getObjectQP(frame).parameter[i].QP;
 			invert = getObjectQP(frame).parameter[i].Invert;
 
-			if (invert != (pcCU->getCUPelX() >= ObX1 && pcCU->getCUPelX() <= ObX2 &&
-				pcCU->getCUPelY() >= ObY1 && pcCU->getCUPelY() <= ObY2))
-					iBaseQp = ObQP;
+			ObX1 = ((int)(ObX1 / 64)) * 64;
+			ObX2 = ((int)(ObX2 / 64)) * 64;
+			ObY1 = ((int)(ObY1 / 64)) * 64;
+			ObY2 = ((int)(ObY2 / 64)) * 64;
+
+			if (invert != (
+				pcCU->getCUPelX() >= ObX1 &&
+				pcCU->getCUPelX() <= ObX2 &&
+				pcCU->getCUPelY() >= ObY1 &&
+				pcCU->getCUPelY() <= ObY2))
+				iBaseQp = ObQP;
 		}
 
 	}
@@ -1544,9 +1554,9 @@ Void TEncCu::xCheckBestMode(TComDataCU*& rpcBestCU, TComDataCU*& rpcTempCU, UInt
 			std::stringstream ss(stringstream::out);
 			ss << "###: " << (predMode == MODE_INTRA ? "Intra   " : "Inter   ") << partSizeToString[rpcBestCU->getPartitionSize(0)] << " CU at " << rpcBestCU->getCUPelX() << ", " << rpcBestCU->getCUPelY() << " width=" << UInt(rpcBestCU->getWidth(0)) << std::endl;
 			sParent += ss.str();
-		}
-#endif
 	}
+#endif
+}
 }
 
 Void TEncCu::xCheckDQP(TComDataCU* pcCU)
