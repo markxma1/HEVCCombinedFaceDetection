@@ -306,7 +306,7 @@ Void TEncSlice::initEncSlice(TComPic* pcPic, Int pocLast, Int pocCurr, Int iGOPi
 	// ------------------------------------------------------------------------------------------------------------------
 	// Lambda computation
 	// ------------------------------------------------------------------------------------------------------------------
-	//TODO
+	//TODO check here
 	Int iQP;
 	Double dOrigQP = dQP;
 
@@ -337,6 +337,7 @@ Void TEncSlice::initEncSlice(TComPic* pcPic, Int pocLast, Int pocCurr, Int iGOPi
 		{
 			dQPFactor = 0.57*dLambda_scale;
 		}
+
 		dLambda = dQPFactor*pow(2.0, qp_temp / 3.0);
 
 		if (depth > 0)
@@ -362,7 +363,7 @@ Void TEncSlice::initEncSlice(TComPic* pcPic, Int pocLast, Int pocCurr, Int iGOPi
 	}
 
 	// obtain dQP = 0 case
-	dLambda = m_pdRdPicLambda[0];
+	dLambda = m_pdRdPicLambda[0]; //TODO LAmbda have a bir role for QP
 	dQP = m_pdRdPicQp[0];
 	iQP = m_piRdPicQp[0];
 
