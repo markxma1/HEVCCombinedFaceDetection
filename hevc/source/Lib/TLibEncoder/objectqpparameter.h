@@ -31,6 +31,8 @@ public:
 	bool Invert;
 };
 
+bool isEmpty();
+
 class ObjectQPFrame
 {
 public:

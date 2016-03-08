@@ -84,14 +84,19 @@ int findObjectFrame(int i, vector< ObjectQPFrame > Fr)
 	return 0;
 }
 
-	void setObjectQP(vector< ObjectQPFrame > QP)
-	{
-		ObjectInFrame::ObjectFrames = QP;
-	}
+void setObjectQP(vector< ObjectQPFrame > QP)
+{
+	ObjectInFrame::ObjectFrames = QP;
+}
 
-	ObjectQPFrame getObjectQP(int i)
-	{
-		int address = findObjectFrame(i, ObjectInFrame::ObjectFrames);
-		 ObjectQPFrame QP=ObjectInFrame::ObjectFrames[address];
-		return   QP;
-	}
+ObjectQPFrame getObjectQP(int i)
+{
+	int address = findObjectFrame(i, ObjectInFrame::ObjectFrames);
+	ObjectQPFrame QP = ObjectInFrame::ObjectFrames[address];
+	return   QP;
+}
+
+bool isEmpty()
+{
+	return ObjectInFrame::ObjectFrames.size() == 0;
+}

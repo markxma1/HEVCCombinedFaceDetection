@@ -906,12 +906,6 @@ Void TEncCu::finishCU(TComDataCU* pcCU, UInt uiAbsPartIdx)
 Int TEncCu::xComputeQP(TComDataCU* pcCU, UInt uiDepth)
 {
 
-	//reade ObjectQP Data
-	if (m_pcEncCfg->getObjectQPPath() != "")
-	{
-		setObjectQP(readObjectQPFile(m_pcEncCfg->getObjectQPPath()));
-	}
-
 	TComSlice* slice = pcCU->getSlice();
 	Int iBaseQp = slice->getSliceQp();
 	Int iQpOffset = 0;

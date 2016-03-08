@@ -638,6 +638,12 @@ Void TEncSlice::compressSlice(TComPic* pcPic, const Bool bCompressEntireSlice, c
 	// if bCompressEntireSlice is true, then the entire slice (not slice segment) is compressed,
 	//   effectively disabling the slice-segment-mode.
 
+	//reade ObjectQP Data
+	if (m_pcCfg->getObjectQPPath() != ""&&  isEmpty())
+	{
+		setObjectQP(readObjectQPFile(m_pcCfg->getObjectQPPath()));
+	}
+
 	UInt   startCtuTsAddr;
 	UInt   boundingCtuTsAddr;
 	TComSlice* const pcSlice = pcPic->getSlice(getSliceIdx());
