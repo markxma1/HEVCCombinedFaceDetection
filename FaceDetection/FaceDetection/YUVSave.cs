@@ -62,13 +62,13 @@ namespace Codek_Tester
 
         }
 
-        public static void SaveToFile(string path = "test2.yuv")
+        public static void SaveToFile(string path = "test2.yuv", int repeat=1)
         {
             try
             {
                 using (var fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite))
                 {
-                    for (int i = 0; i <5; i++)
+                    for (int i = 0; i < repeat; i++)
                     {
                         fs.Seek(0, SeekOrigin.End);
                         fs.Write(Bytes.ToArray(), 0, Bytes.Count);

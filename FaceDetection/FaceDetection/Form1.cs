@@ -26,6 +26,7 @@ namespace FaceDetection
         private bool YUVLoaded = false;
         private bool _captureInProgress;
         private int frameID = 1;
+        private int repeat = 1;
 
         public Form1()
         {
@@ -58,7 +59,7 @@ namespace FaceDetection
                     if (YUVSaveTo.Text != "" && !YUVLoaded)
                     {
                         YUVSave.PutImage(frame, frame.Width, frame.Height);
-                        YUVSave.SaveToFile(YUVSaveTo.Text);
+                        YUVSave.SaveToFile(YUVSaveTo.Text, repeat);
                     }
                     DetectFace(frame.Clone());
                 }
@@ -91,20 +92,29 @@ namespace FaceDetection
             tryUseCuda,
             tryUseOpenCL,
             out detectionTime);
-
-            foreach (Rectangle face in faces)
+            if (faces.Count > 0)
             {
-                CvInvoke.Rectangle(image, face, new Bgr(Color.Red).MCvScalar, 2);
-
-                using (var fs = new StreamWriter("test.txt", true))
+                foreach (Rectangle face in faces)
                 {
-                    for (int i = 0; i < 5; i++)
+                    CvInvoke.Rectangle(image, face, new Bgr(Color.Red).MCvScalar, 2);
+
+
+                    using (var fs = new StreamWriter("test.txt", true))
                     {
-                        fs.WriteLine(frameID + " " + face.X + " " + face.Y + " " + face.Width + " " + face.Height + " 51 1");
-                        frameID++;
+                        for (int i = 0; i < repeat; i++)
+                        {
+                            fs.WriteLine(frameID + " " + face.X + " " + face.Y + " " + face.Width + " " + face.Height + " 0 0");
+                            frameID++;
+                        }
                     }
+
                 }
             }
+            else
+            {
+                frameID++;
+            }
+
             foreach (Rectangle eye in eyes)
                 CvInvoke.Rectangle(image, eye, new Bgr(Color.Blue).MCvScalar, 2);
 
@@ -179,6 +189,7 @@ namespace FaceDetection
                 _capture.Dispose();
                 _capture = new Capture();
                 _capture.ImageGrabbed += ProcessFrame;
+                repeat = 5;
             }
             catch (NullReferenceException excpt)
             {
@@ -197,6 +208,7 @@ namespace FaceDetection
                     _capture.Dispose();
                     _capture = new Capture(fileName);
                     _capture.ImageGrabbed += ProcessFrame;
+                    repeat = 1;
                 }
                 catch (Exception ex)
                 {
@@ -216,6 +228,7 @@ namespace FaceDetection
                     fileName = openFileDialog1.FileName;
                     _captureYUV = new YUVLoad(fileName, w, h);
                     _captureYUV.ImageGrabbed += ProcessFrame;
+                    repeat = 1;
                     YUVLoaded = true;
                 }
                 catch (Exception ex)
