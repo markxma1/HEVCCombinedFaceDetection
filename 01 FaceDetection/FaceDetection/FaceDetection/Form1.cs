@@ -99,11 +99,11 @@ namespace FaceDetection
                     CvInvoke.Rectangle(image, face, new Bgr(Color.Red).MCvScalar, 2);
 
 
-                    using (var fs = new StreamWriter("test.txt", true))
+                    using (var fs = new StreamWriter(textPath.Text, true))
                     {
                         for (int i = 0; i < repeat; i++)
                         {
-                            fs.WriteLine(frameID + " " + face.X + " " + face.Y + " " + face.Width + " " + face.Height + " 0 0");
+                            fs.WriteLine(frameID + " " + face.X + " " + face.Y + " " + face.Width + " " + face.Height + " " + QPParameter.Text + " " + inverseParameter.Text);
                             frameID++;
                         }
                     }

@@ -41,6 +41,12 @@
             this.YUVSize = new System.Windows.Forms.TextBox();
             this.YUVSaveTo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.textPath = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.QPParameter = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.inverseParameter = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -59,7 +65,7 @@
             // 
             this.pictureBox1.Location = new System.Drawing.Point(12, 41);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(393, 491);
+            this.pictureBox1.Size = new System.Drawing.Size(428, 491);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -90,9 +96,9 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(411, 41);
+            this.pictureBox2.Location = new System.Drawing.Point(446, 41);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(428, 491);
+            this.pictureBox2.Size = new System.Drawing.Size(439, 491);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 5;
             this.pictureBox2.TabStop = false;
@@ -148,7 +154,7 @@
             // 
             this.YUVSaveTo.Location = new System.Drawing.Point(672, 19);
             this.YUVSaveTo.Name = "YUVSaveTo";
-            this.YUVSaveTo.Size = new System.Drawing.Size(99, 20);
+            this.YUVSaveTo.Size = new System.Drawing.Size(72, 20);
             this.YUVSaveTo.TabIndex = 12;
             this.YUVSaveTo.Text = "test.yuv";
             // 
@@ -161,11 +167,68 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "YUV Save to: ";
             // 
+            // textPath
+            // 
+            this.textPath.Location = new System.Drawing.Point(753, 19);
+            this.textPath.Name = "textPath";
+            this.textPath.Size = new System.Drawing.Size(67, 20);
+            this.textPath.TabIndex = 13;
+            this.textPath.Text = "test.txt";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(750, 3);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(70, 13);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "text Save to: ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(823, 3);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(28, 13);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "QP: ";
+            // 
+            // QPParameter
+            // 
+            this.QPParameter.Location = new System.Drawing.Point(826, 19);
+            this.QPParameter.Name = "QPParameter";
+            this.QPParameter.Size = new System.Drawing.Size(25, 20);
+            this.QPParameter.TabIndex = 15;
+            this.QPParameter.Text = "0";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(857, 3);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(48, 13);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Inverse: ";
+            // 
+            // inverseParameter
+            // 
+            this.inverseParameter.Location = new System.Drawing.Point(860, 19);
+            this.inverseParameter.Name = "inverseParameter";
+            this.inverseParameter.Size = new System.Drawing.Size(25, 20);
+            this.inverseParameter.TabIndex = 17;
+            this.inverseParameter.Text = "0";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(851, 544);
+            this.ClientSize = new System.Drawing.Size(937, 544);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.inverseParameter);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.QPParameter);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.textPath);
             this.Controls.Add(this.YUVSaveTo);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.YUVSize);
@@ -203,6 +266,12 @@
         private System.Windows.Forms.TextBox YUVSize;
         private System.Windows.Forms.TextBox YUVSaveTo;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textPath;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox QPParameter;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox inverseParameter;
     }
 }
 
