@@ -87,7 +87,7 @@ namespace FaceDetection
             bool tryUseOpenCL = true;
 
             FaceDetection.DetectFace.Detect(
-            image, "haarcascade_frontalface_default.xml", "haarcascade_eye.xml",
+            image, @"FaceDetection\haarcascade_frontalface_default.xml", @"FaceDetection\haarcascade_eye.xml",
             faces, eyes,
             tryUseCuda,
             tryUseOpenCL,
