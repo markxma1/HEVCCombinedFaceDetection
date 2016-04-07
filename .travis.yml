@@ -1,2 +1,2 @@
 language: csharp
-solution: "01 FaceDetection//FaceDetection.sln"
+solution: ./01 FaceDetection/FaceDetection.sln
