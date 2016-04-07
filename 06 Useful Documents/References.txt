@@ -1,0 +1,15 @@
+http://iphome.hhi.de/wiegand/assets/pdfs/2012_12_IEEE-HEVC-Overview.pdf
+
+https://github.com/xuguangxin/hevc
+
+https://ru.wikipedia.org/wiki/H.265
+https://de.wikipedia.org/wiki/High_Efficiency_Video_Coding
+https://en.wikipedia.org/wiki/High_Efficiency_Video_Coding
+http://www.merl.com/publications/docs/TR2013-034.pdf
+
+http://docs.opencv.org/2.4/modules/objdetect/doc/cascade_classification.html
+http://t3n.de/news/entwicklung-fernseh-technologie-letzten-10-jahren-329337/
+http://www.emgu.com/wiki/index.php/Download_And_Installation 
+http://docs.opencv.org/master/d7/d8b/tutorial_py_face_detection.html#gsc.tab=0
+
+http://www.pcs2013.org/GCC/Deng.pdf

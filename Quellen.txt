@@ -1,8 +1,0 @@
-http://iphome.hhi.de/wiegand/assets/pdfs/2012_12_IEEE-HEVC-Overview.pdf
-
-https://github.com/xuguangxin/hevc
-
-https://ru.wikipedia.org/wiki/H.265
-https://de.wikipedia.org/wiki/High_Efficiency_Video_Coding
-https://en.wikipedia.org/wiki/High_Efficiency_Video_Coding
-http://www.merl.com/publications/docs/TR2013-034.pdf
