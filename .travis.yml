@@ -1,0 +1,2 @@
+language: csharp
+solution: "01 FaceDetection/FaceDetection.sln"
