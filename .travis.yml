@@ -8,7 +8,7 @@
     - gcc  
   language: cpp
   script: 
-    - "cd \"02 hevc\"
+    - "cd \"02 hevc\""
     - "cd build\\linux"
     - "mkdir build"
     - "cd build"
