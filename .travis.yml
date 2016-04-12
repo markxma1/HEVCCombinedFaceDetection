@@ -1,7 +1,7 @@
-language: csharp
-before_install:
-  - cd "01 FaceDetection"
-solution: FaceDetection.sln
+# language: csharp
+# before_install:
+#   - cd "01 FaceDetection"
+# solution: FaceDetection.sln
 
 language: csharp
 mono:
