@@ -1,0 +1,1 @@
+TAppEncoder.exe -c test.cfg -i test.yuv > info.txt
