@@ -1,19 +1,17 @@
- language: csharp
- before_install:
-   - cd "01 FaceDetection"
- solution: FaceDetection.sln
- 
- language: cpp
- 
- compiler:
-  - clang
-  - gcc
- 
- script:
- - cd "02 hevc"\build\linux
-  - mkdir build
-  - cd build
-  - cmake .. && make
+#  before_install: 
+#    - "cd \"01 FaceDetection\""
+#  language: csharp
+#  solution: FaceDetection.sln
+  
+  compiler: 
+    - clang
+    - gcc  
+  language: cpp
+  script: 
+    - "cd \"02 hevc\""
+    - "cd build/linux"
+    - "make -f makefile"
+
 
 #language: csharp
 #mono:
