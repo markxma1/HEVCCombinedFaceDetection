@@ -1,14 +1,14 @@
-# language: csharp
-# before_install:
-#   - cd "01 FaceDetection"
-# solution: FaceDetection.sln
+ language: csharp
+ before_install:
+   - cd "01 FaceDetection"
+ solution: FaceDetection.sln
 
-language: csharp
-mono:
-  - latest
-before_install:
-  - cd "03 Codek Tester"
-solution: "CodekTester.sln"
+#language: csharp
+#mono:
+#  - latest
+#before_install:
+#  - cd "03 Codek Tester"
+#solution: "CodekTester.sln"
 
-after_failure:
-  - ls -LR 
+#after_failure:
+#  - ls -LR 
