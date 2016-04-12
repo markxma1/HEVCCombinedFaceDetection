@@ -11,4 +11,4 @@ before_install:
 solution: "CodekTester.sln"
 
 after_failure:
-  - ls -LR src/packages
+  - ls -LR 
