@@ -1,2 +1,3 @@
 language: csharp
-solution: "01 FaceDetection/FaceDetection.sln"
+before_script: cd "01 FaceDetection"
+solution: "FaceDetection.sln"
