@@ -4,8 +4,11 @@ before_install:
 solution: FaceDetection.sln
 
 language: csharp
+mono:
+  - latest
 before_install:
   - cd "03 Codek Tester"
-  - ls
-script:
-  - xbuild /p:Configuration=Release "CodekTester.sln" /p:TargetFrameworkVersion="v4.5" /p:DebugSymbols=False 
+solution: "CodekTester.sln"
+
+after_failure:
+  - ls -LR src/packages
