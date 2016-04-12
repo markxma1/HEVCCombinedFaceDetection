@@ -10,7 +10,7 @@
   - gcc
  
  script:
- - cd "02 hevc"\build\linux
+  - cd \"02 hevc\"\build\linux
   - mkdir build
   - cd build
   - cmake .. && make
