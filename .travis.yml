@@ -1,2 +1,5 @@
 language: csharp
-solution: "01 FaceDetection"/FaceDetection.sln
+before_install:
+  - cd "01 FaceDetection"
+  - ls
+solution: FaceDetection.sln
