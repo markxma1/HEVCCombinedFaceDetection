@@ -1,0 +1,23 @@
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\bin\Debug\Codek Tester.exe.config
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\bin\Debug\TAppDecoder.exe
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\bin\Debug\TAppEncoder.exe
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\bin\Debug\x64\cvextern.dll
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\bin\Debug\x64\cvextern_test.exe
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\bin\Debug\x64\msvcp120.dll
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\bin\Debug\x64\msvcr120.dll
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\bin\Debug\x64\opencv_ffmpeg300_64.dll
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\bin\Debug\x86\cvextern.dll
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\bin\Debug\x86\msvcp120.dll
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\bin\Debug\x86\msvcr120.dll
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\bin\Debug\x86\opencv_ffmpeg300.dll
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\bin\Debug\test.cfg
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\bin\Debug\Emgu.CV.dll
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\bin\Debug\Emgu.CV.UI.dll
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\bin\Debug\Emgu.Util.dll
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\obj\Debug\Codek Tester.csprojResolveAssemblyReference.cache
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\obj\Debug\Codek_Tester.Main.resources
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\obj\Debug\Codek_Tester.Properties.Resources.resources
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\obj\Debug\Codek_Tester.PSNRForm.resources
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\obj\Debug\Codek Tester.csproj.GenerateResource.Cache
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\obj\Debug\Codek Tester.exe
+C:\Users\Xma1\Documents\GITHUB\HEVCCombinedFaceDetection\03 Codek Tester\Codek Tester\obj\Debug\Codek Tester.pdb
