@@ -6,4 +6,4 @@ solution: FaceDetection.sln
 language: csharp
 before_install:
   - cd "03 Codek Tester"
-solution: "CodekTester.sln"
+xbuild /p:Configuration=Release "CodekTester.sln" /p:TargetFrameworkVersion="v4.5" /p:DebugSymbols=False 
