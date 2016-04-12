@@ -3,13 +3,13 @@
 #  language: csharp
 #  solution: FaceDetection.sln
   
-  language: cpp
   compiler: 
     - clang
-    - gcc
+    - gcc  
+  language: cpp
   script: 
     - "cd \"02 hevc\"\\build\\linux"
-   - "mkdir build"
+    - "mkdir build"
     - "cd build"
     - "cmake .. && make"
 
