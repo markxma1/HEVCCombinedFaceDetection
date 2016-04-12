@@ -1,15 +1,13 @@
 #  before_install: 
-#    - "cd \"01 FaceDetection\""
 #  language: csharp
-#  solution: FaceDetection.sln
+#  solution: 01_FaceDetection/FaceDetection.sln
   
   compiler: 
     - clang
     - gcc  
   language: cpp
   script: 
-    - "cd \"02 hevc\""
-    - "cd build/linux"
+    - "cd 02_hevc/build/linux"
     - "make -f makefile"
 
 
@@ -17,7 +15,7 @@
 #mono:
 #  - latest
 #before_install:
-#  - cd "03 Codek Tester"
+#  - cd "03_Codek_Tester"
 #solution: "CodekTester.sln"
 
 #after_failure:
