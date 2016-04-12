@@ -10,7 +10,7 @@
   script: 
     - "cd \"02 hevc\""
     - "cd build/linux"
-    - "./makefile"
+    - "make -f makefile"
 
 
 #language: csharp
