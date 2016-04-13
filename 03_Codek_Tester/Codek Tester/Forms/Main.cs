@@ -1,5 +1,6 @@
 ﻿using Emgu.CV;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -25,6 +26,8 @@ namespace Codek_Tester
         int MaxFrame = 100;
         string openFile, saveFile;
         bool stopComp = false;
+        List<Rectangle> rect;
+
 
         public Main()
         {
@@ -130,12 +133,18 @@ namespace Codek_Tester
                     double PSNR;
                     Mat b0 = Origenal.Clone();
                     Mat b1 = Encoded.Clone();
-                    PSNR = CvInvoke.PSNR(b0, b1);
+                    if (checkBox1.Checked && rect.Count > 0)
+                    {
+                        Rectangle cut = rect[frameID];
+                        b0 = new Mat(b0, cut);
+                        b1 = new Mat(b1, cut);
+                    }
+                    PSNR = CvInvoke.PSNR(b0.Clone(), b1.Clone());
                     PSNRDurch = (PSNRDurch * (frameID - 1) + PSNR) / frameID;
                     diff = new Mat();
-                    CvInvoke.AbsDiff(Origenal, Encoded, diff);
-                    pictureBox1.Image = new Bitmap(Origenal.Bitmap);
-                    pictureBox2.Image = new Bitmap(Encoded.Bitmap);
+                    CvInvoke.AbsDiff(b0, b1, diff);
+                    pictureBox1.Image = new Bitmap(b0.Bitmap);
+                    pictureBox2.Image = new Bitmap(b1.Bitmap);
                     pictureBox3.Image = new Bitmap(diff.Bitmap);
                     this.Invoke((Action)delegate
                     {
@@ -161,6 +170,8 @@ namespace Codek_Tester
             {
                 PSNRDurch = 0;
                 comp = 0;
+                Input.Stop();
+                Outout.Stop();
                 Input.Start();
                 Outout.Start();
                 psnrForm.Clear();
@@ -325,8 +336,28 @@ namespace Codek_Tester
                     if (openFileDialog1.ShowDialog() == DialogResult.OK)
                     {
                         Outout = new YUVLoad(openFileDialog1.FileName, int.Parse(textBox1.Text), int.Parse(textBox2.Text));
+
+                        System.IO.FileInfo fInfo = new System.IO.FileInfo(openFileDialog1.FileName);
+
+                        rect = new List<Rectangle>();
+                        string txtFile = fInfo.DirectoryName + "\\" + textBox3.Text;
+                        if (new System.IO.FileInfo(txtFile).Exists&&checkBox1.Checked)
+                        {
+                            string[] text = System.IO.File.ReadAllLines(txtFile);
+                            foreach (var item in text)
+                            {
+                                string[] temp = item.Split(' ');
+                                int[] itemp = new int[5];
+                                for (int i = 0; i < 5; i++)
+                                {
+                                    itemp[i] = int.Parse(temp[i]);
+                                }
+                                rect.Add(new Rectangle(itemp[1], itemp[2], itemp[3], itemp[4]));
+                            }
+                        }
                     }
                 }
+
 
                 Input.ImageGrabbed += ProcessFrameInput;
                 Outout.ImageGrabbed += ProcessFrameOutput;
@@ -337,6 +368,12 @@ namespace Codek_Tester
         private void timer1_Tick(object sender, EventArgs e)
         {
             Compare();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Input.Stop();
+            Outout.Stop();
         }
 
         private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)

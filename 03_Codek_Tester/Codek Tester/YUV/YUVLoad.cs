@@ -171,6 +171,7 @@ namespace Codek_Tester
         public void Stop()
         {
             start = false;
+
         }
 
         private static Color YUVtoRGB(byte[,] Y, byte[,] U, byte[,] V, int i, int j)
