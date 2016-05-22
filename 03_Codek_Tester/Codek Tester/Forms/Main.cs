@@ -27,7 +27,7 @@ namespace Codek_Tester
         string openFile, saveFile;
         bool stopComp = false;
         List<Rectangle> rect;
-
+        List<Rectangle> rect2;
 
         public Main()
         {
@@ -135,7 +135,7 @@ namespace Codek_Tester
                     Mat b1 = Encoded.Clone();
                     if (checkBox1.Checked && rect.Count > 0)
                     {
-                        Rectangle cut = rect[frameID];
+                        Rectangle cut = rect2[frameID];
                         b0 = new Mat(b0, cut);
                         b1 = new Mat(b1, cut);
                     }
@@ -340,6 +340,7 @@ namespace Codek_Tester
                         System.IO.FileInfo fInfo = new System.IO.FileInfo(openFileDialog1.FileName);
 
                         rect = new List<Rectangle>();
+                        rect2 = new List<Rectangle>();
                         string txtFile = fInfo.DirectoryName + "\\" + textBox3.Text;
                         if (new System.IO.FileInfo(txtFile).Exists&&checkBox1.Checked)
                         {
@@ -353,6 +354,7 @@ namespace Codek_Tester
                                     itemp[i] = int.Parse(temp[i]);
                                 }
                                 rect.Add(new Rectangle(itemp[1], itemp[2], itemp[3], itemp[4]));
+                                rect2.Add(new Rectangle(0,0,itemp[1], 240));
                             }
                         }
                     }

@@ -15,8 +15,8 @@ namespace Codek_Tester
 {
     class YUVLoad
     {
-        private int w = 352;
-        private int h = 288;
+        public int w = 352;
+        public int h = 288;
         private byte[] fileBytes;
         private FileStream fileStream;
 
