@@ -1,0 +1,10 @@
+﻿  TEncTop.cpp
+  TEncSlice.cpp
+  TEncSearch.cpp
+  TEncSbac.cpp
+  TEncRateCtrl.cpp
+  TEncGOP.cpp
+  TEncCu.cpp
+  SEIEncoder.cpp
+  Создание кода...
+  TLibEncoder_vc10.vcxproj -> C:\Users\Xma1\Source\Repos\HEVCandFaceDetect\hevc\build\\vc10\Win32\Debug\TLibEncoder\TLibEncoder.lib

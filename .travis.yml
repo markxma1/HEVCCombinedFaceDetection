@@ -1,5 +1,18 @@
-language: csharp
-before_install:
-  - cd "01 FaceDetection"
-  - ls
-solution: FaceDetection.sln
+  language: csharp
+  solution: 01_FaceDetection/FaceDetection.sln
+  
+#  compiler: 
+#    - clang
+#    - gcc  
+#  language: cpp
+#  script: 
+#    - "cd 02_hevc/build/linux"
+#    - "make -f makefile"
+
+
+#language: csharp
+#mono:
+#  - latest
+#before_install:
+#  - cd "03_Codek_Tester"
+#solution: "CodekTester.sln"
